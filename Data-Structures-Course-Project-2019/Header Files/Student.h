@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 #include <string>
 
 struct Student {
@@ -22,6 +22,15 @@ struct Student {
 		studentDepartment = department;
 		groupByNo = FindNoGroup(no);
 		groupBySurname = FindSurnameGroup(surname);
+	}
+
+	void displayStudent() {
+		std::cout << "-----------------------------------------------------" << std::endl;
+		std::cout << "Student No:" << studentNo << std::endl;
+		std::cout << "Student Name:" << studentName << std::endl;
+		std::cout << "Student Surname:" << studentSurname << std::endl;
+		std::cout << "Student Department:" << studentDepartment << std::endl;
+		std::cout << "-----------------------------------------------------" << std::endl;
 	}
 
 private:
