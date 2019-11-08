@@ -1,9 +1,12 @@
 #include <iostream>
 #include <string>
 #include "../Header Files/LinkedList.h"
+#include "../Header Files/Stack.h"
 
 //This is for student linked list.
-LinkedList list;
+LinkedList studentList;
+//This is for Data Structures and Algorithms Course list (Stack).
+Stack dataStructuresStack;
 
 void writeOperations();
 void addStudentWith(int nodeCount, int studentNo, std::string studentName, std::string studentSurname, std::string studentDepartment);
@@ -16,6 +19,14 @@ int main() {
 	//This variables for stored student credentials
 	int studentNo;
 	std::string studentName, studentSurname, studentDepartment;
+	//For deletion student
+	int deletedStudentNo = 0;
+	//This variable stores course take count of student
+	int courseTakeCount;
+	//This stack uses in a deletion of spesific student in stack
+	Stack auxStack;
+	//This variable uses in a deletion of spesific student in stack
+	int auxStudentNo;
 
 	//While for application menu
 	while (true) {
@@ -43,7 +54,7 @@ int main() {
 			std::cout << "\nEnter the number of the student you wish to delete from the student list: ";
 			std::cin >> studentNo;
 
-			if (list.DeleteNode(studentNo) != 0) {
+			if (studentList.DeleteNode(studentNo) != 0) {
 				std::cout << "Student deleted from list!!!" << std::endl;
 				studentListNodes--;
 			}
@@ -55,9 +66,9 @@ int main() {
 			std::cout << "\nEnter the number of the student you wish to find from the student list: ";
 			std::cin >> studentNo;
 
-			if (list.FindNode(studentNo) != 0) {
+			if (studentList.FindNode(studentNo) != 0) {
 				std::cout << "Found Student!!!" << std::endl;
-				list.FindStudent(studentNo).displayStudent();
+				studentList.FindStudent(studentNo).displayStudent("");
 			}
 			else {
 				std::cout << "Such a student is not in the student list." << std::endl;
@@ -66,7 +77,65 @@ int main() {
 
 		case 4:
 			std::cout << "\nStudent List" << std::endl;
-			list.DisplayList();
+			studentList.DisplayList();
+			break;
+		case 5:
+			std::cout << "\nEnter the number of the student you want to add to Data Structures Course: ";
+			std::cin >> studentNo;
+			std::cout << "\nEnter how many times do you take the lesson: ";
+			std::cin >> courseTakeCount;
+			if (studentList.FindNode(studentNo) != 0) {
+				Student willAddstudent = studentList.FindStudent(studentNo);
+				willAddstudent.dataStructuresCount = courseTakeCount;
+				dataStructuresStack.push(willAddstudent);
+				std::cout << "Student added to Data Structures course successfully!";
+			}
+			else {
+				std::cout << "Such a student is not in the student list." << std::endl;
+			}
+			break;
+		case 6:
+			deletedStudentNo = dataStructuresStack.pop();
+			if (deletedStudentNo != -1) {
+				std::cout << "Deleted Student!!!" << std::endl;
+				studentList.FindStudent(deletedStudentNo).displayStudent("DataStructures");
+			}
+			break;
+		case 7:
+			std::cout << "\nEnter the number of the student you wish to delete from the data structures course list: ";
+			std::cin >> studentNo;
+
+			if (dataStructuresStack.FindNode(studentNo) != 0) {
+				while (!dataStructuresStack.isEmpty())
+				{
+					deletedStudentNo = dataStructuresStack.pop();
+					if (studentNo != deletedStudentNo)
+						auxStack.push(studentList.FindStudent(deletedStudentNo));
+				}
+
+				while (!auxStack.isEmpty())
+				{
+					auxStudentNo = auxStack.pop();
+					dataStructuresStack.push(studentList.FindStudent(auxStudentNo));
+				}
+			}
+			else if(studentList.FindNode(studentNo) == 0){
+				std::cout << "Such a student is not in the student list." << std::endl;
+			}
+			else {
+				std::cout << "Such a student is not in the data structures course list." << std::endl;
+			}
+			break;
+		case 8:
+			if (dataStructuresStack.isEmpty()) {
+				dataStructuresStack.Top();
+			}
+			else {
+				dataStructuresStack.Top().displayStudent("DataStructures");
+			}
+			break;
+		case 9:
+			dataStructuresStack.DisplayStack();
 			break;
 		default:
 			break;
@@ -79,16 +148,21 @@ int main() {
 
 //This function for writing operations
 void writeOperations() {
-	std::cout << "\nOperations" << std::endl;
+	std::cout << "\n\nOperations" << std::endl;
 	std::cout << "1. Add a student to student linked list" << std::endl;
 	std::cout << "2. Delete a student from student linked list" << std::endl;
 	std::cout << "3. Find a student from student linked list" << std::endl;
 	std::cout << "4. Display a student list" << std::endl;
+	std::cout << "5. Add a student to Data Structures and Algorithms Course (Stack Push)" << std::endl;
+	std::cout << "6. Delete a last added student from Data Structures and Algorithms Course (Stack Pop)" << std::endl;
+	std::cout << "7. Delete a student from Data Structures and Algorithms Course (Delete student from stack)" << std::endl;
+	std::cout << "8. Top student in the Data Structures and Algorithms Course (Stack Top)" << std::endl;
+	std::cout << "9. Display Data Structures and Algorithms Course list (Stack Display)" << std::endl;
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
 void addStudentWith(int nodeCount, int studentNo, std::string studentName, std::string studentSurname, std::string studentDepartment) {
 	Student student(studentNo, studentName, studentSurname, studentDepartment);
-	list.InsertNode(nodeCount, student);
+	studentList.InsertNode(nodeCount, student);
 }
 

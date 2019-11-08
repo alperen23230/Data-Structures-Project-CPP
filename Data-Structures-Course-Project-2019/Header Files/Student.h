@@ -24,13 +24,35 @@ struct Student {
 		groupBySurname = FindSurnameGroup(surname);
 	}
 
-	void displayStudent() {
-		std::cout << "-----------------------------------------------------" << std::endl;
-		std::cout << "Student No:" << studentNo << std::endl;
-		std::cout << "Student Name:" << studentName << std::endl;
-		std::cout << "Student Surname:" << studentSurname << std::endl;
-		std::cout << "Student Department:" << studentDepartment << std::endl;
-		std::cout << "-----------------------------------------------------" << std::endl;
+	void displayStudent(std::string courseType) {
+		if (courseType == "DataStructures") {
+			std::cout << "-----------------------------------------------------" << std::endl;
+			std::cout << "Student No:" << studentNo << std::endl;
+			std::cout << "Student Name:" << studentName << std::endl;
+			std::cout << "Student Surname:" << studentSurname << std::endl;
+			std::cout << "Student Department:" << studentDepartment << std::endl;
+			std::cout << "Student Group:" << groupBySurname << std::endl;
+			std::cout << "Student Data Structures course take count:" << dataStructuresCount << std::endl;
+			std::cout << "-----------------------------------------------------" << std::endl;
+		}
+		else if (courseType == "DatabaseManagement") {
+			std::cout << "-----------------------------------------------------" << std::endl;
+			std::cout << "Student No:" << studentNo << std::endl;
+			std::cout << "Student Name:" << studentName << std::endl;
+			std::cout << "Student Surname:" << studentSurname << std::endl;
+			std::cout << "Student Department:" << studentDepartment << std::endl;
+			std::cout << "Student Group:" << groupByNo << std::endl;
+			std::cout << "-----------------------------------------------------" << std::endl;
+		}
+		else {
+			std::cout << "-----------------------------------------------------" << std::endl;
+			std::cout << "Student No:" << studentNo << std::endl;
+			std::cout << "Student Name:" << studentName << std::endl;
+			std::cout << "Student Surname:" << studentSurname << std::endl;
+			std::cout << "Student Department:" << studentDepartment << std::endl;
+			std::cout << "-----------------------------------------------------" << std::endl;
+		}
+	
 	}
 
 private:

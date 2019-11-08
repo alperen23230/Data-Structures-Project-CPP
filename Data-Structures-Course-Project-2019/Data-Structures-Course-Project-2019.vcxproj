@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\LinkedList.h" />
+    <ClInclude Include="Header Files\Stack.h" />
     <ClInclude Include="Header Files\Student.h" />
   </ItemGroup>
   <ItemGroup>

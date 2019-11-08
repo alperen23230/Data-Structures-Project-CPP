@@ -14,6 +14,7 @@ class LinkedList {
 
 private:
 	Node* head;
+	friend class Stack;
 
 public:
 	LinkedList() {
@@ -113,7 +114,7 @@ public:
 
 		while (currNode != NULL)
 		{
-			currNode->student.displayStudent();
+			currNode->student.displayStudent("");
 			currNode = currNode->next;
 			num++;
 		}
