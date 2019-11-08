@@ -1,10 +1,16 @@
 #include <iostream>
 #include <string>
 #include "../Header Files/LinkedList.h"
+<<<<<<< HEAD
+=======
+#include "../Header Files/Stack.h"
+>>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
 #include "../Header Files/Sorting.h"
 
 //This is for student linked list.
-LinkedList list;
+LinkedList studentList;
+//This is for Data Structures and Algorithms Course list (Stack).
+Stack dataStructuresStack;
 
 void writeOperations();
 void addStudentWith(int nodeCount, int studentNo, std::string studentName, std::string studentSurname, std::string studentDepartment);
@@ -19,11 +25,26 @@ int main() {
 	//This variables for stored student credentials
 	int studentNo;
 	std::string studentName, studentSurname, studentDepartment;
+	//For deletion student
+	int deletedStudentNo = 0;
+	//This variable stores course take count of student
+	int courseTakeCount;
+	//This variable for number of nodes
+	int numberOfNodes = 0;
+	//This stack uses in a deletion of spesific student in stack
+	Stack auxStack;
+	//This variable uses in a deletion of spesific student in stack
+	int auxStudentNo;
 
 	//While for application menu
 	while (true) {
 		writeOperations();
+<<<<<<< HEAD
 		numberOfNodes = list.NumberOfNode();
+=======
+		numberOfNodes = studentList.NumberOfNode();
+
+>>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
 		std::cin >> selection;
 
 		switch (selection)
@@ -46,7 +67,7 @@ int main() {
 			std::cout << "\nEnter the number of the student you wish to delete from the student list: ";
 			std::cin >> studentNo;
 
-			if (list.DeleteNode(studentNo) != 0) {
+			if (studentList.DeleteNode(studentNo) != 0) {
 				std::cout << "Student deleted from list!!!" << std::endl;
 				studentListNodes--;
 			}
@@ -58,9 +79,9 @@ int main() {
 			std::cout << "\nEnter the number of the student you wish to find from the student list: ";
 			std::cin >> studentNo;
 
-			if (list.FindNode(studentNo) != 0) {
+			if (studentList.FindNode(studentNo) != 0) {
 				std::cout << "Found Student!!!" << std::endl;
-				list.FindStudent(studentNo).displayStudent();
+				studentList.FindStudent(studentNo).displayStudent("");
 			}
 			else {
 				std::cout << "Such a student is not in the student list." << std::endl;
@@ -69,8 +90,87 @@ int main() {
 
 		case 4:
 			std::cout << "\nStudent List" << std::endl;
+<<<<<<< HEAD
 			std::cout << numberOfNodes << std::endl;
 			list.DisplayList();
+=======
+			studentList.DisplayList();
+			break;
+		case 5:
+			std::cout << "\nEnter the number of the student you want to add to Data Structures Course: ";
+			std::cin >> studentNo;
+			std::cout << "\nEnter how many times do you take the lesson: ";
+			std::cin >> courseTakeCount;
+			if (studentList.FindNode(studentNo) != 0) {
+				Student willAddstudent = studentList.FindStudent(studentNo);
+				willAddstudent.dataStructuresCount = courseTakeCount;
+				dataStructuresStack.push(willAddstudent);
+				std::cout << "Student added to Data Structures course successfully!";
+			}
+			else {
+				std::cout << "Such a student is not in the student list." << std::endl;
+			}
+			break;
+		case 6:
+			deletedStudentNo = dataStructuresStack.pop();
+			if (deletedStudentNo != -1) {
+				std::cout << "Deleted Student!!!" << std::endl;
+				studentList.FindStudent(deletedStudentNo).displayStudent("DataStructures");
+			}
+			break;
+		case 7:
+			std::cout << "\nEnter the number of the student you wish to delete from the data structures course list: ";
+			std::cin >> studentNo;
+
+			if (dataStructuresStack.FindNode(studentNo) != 0) {
+				while (!dataStructuresStack.isEmpty())
+				{
+					deletedStudentNo = dataStructuresStack.pop();
+					if (studentNo != deletedStudentNo)
+						auxStack.push(studentList.FindStudent(deletedStudentNo));
+				}
+
+				while (!auxStack.isEmpty())
+				{
+					auxStudentNo = auxStack.pop();
+					dataStructuresStack.push(studentList.FindStudent(auxStudentNo));
+				}
+			}
+			else if(studentList.FindNode(studentNo) == 0){
+				std::cout << "Such a student is not in the student list." << std::endl;
+			}
+			else {
+				std::cout << "Such a student is not in the data structures course list." << std::endl;
+			}
+			break;
+		case 8:
+			if (dataStructuresStack.isEmpty()) {
+				dataStructuresStack.Top();
+			}
+			else {
+				dataStructuresStack.Top().displayStudent("DataStructures");
+			}
+			break;
+		case 9:
+			dataStructuresStack.DisplayStack();
+			break;
+		case 10:
+			addExampleStudentList();
+			std::cout << "\nExample List has been added" << std::endl;
+			break;
+		case 11:
+			std::cout << "\Sorted List" << std::endl;
+			if (numberOfNodes == 0)
+			{
+				std::cout << "\List is empty" << std::endl;
+			}
+			else
+			{
+				string* surnames = studentList.getList(numberOfNodes);
+				Radix sort(surnames, numberOfNodes);
+				sort.displayRadixSorted();
+			}
+>>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
 			break;
 
 		case 5:
@@ -100,19 +200,29 @@ int main() {
 
 //This function for writing operations
 void writeOperations() {
-	std::cout << "\nOperations" << std::endl;
+	std::cout << "\n\nOperations" << std::endl;
 	std::cout << "1. Add a student to student linked list" << std::endl;
 	std::cout << "2. Delete a student from student linked list" << std::endl;
 	std::cout << "3. Find a student from student linked list" << std::endl;
 	std::cout << "4. Display a student list" << std::endl;
+<<<<<<< HEAD
 	std::cout << "5. Sort the list with radix in order to surnames"<< std::endl;
 	std::cout << "6. Add example list to student linked list" << std::endl;
+=======
+	std::cout << "5. Add a student to Data Structures and Algorithms Course (Stack Push)" << std::endl;
+	std::cout << "6. Delete a last added student from Data Structures and Algorithms Course (Stack Pop)" << std::endl;
+	std::cout << "7. Delete a student from Data Structures and Algorithms Course (Delete student from stack)" << std::endl;
+	std::cout << "8. Top student in the Data Structures and Algorithms Course (Stack Top)" << std::endl;
+	std::cout << "9. Display Data Structures and Algorithms Course list (Stack Display)" << std::endl;
+	std::cout << "10. Add example list to student linked list" << std::endl;
+	std::cout << "11. Sort the list with radix in order to surnames" << std::endl;
+>>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
 void addStudentWith(int nodeCount, int studentNo, std::string studentName, std::string studentSurname, std::string studentDepartment) {
 	Student student(studentNo, studentName, studentSurname, studentDepartment);
-	list.InsertNode(nodeCount, student);
+	studentList.InsertNode(nodeCount, student);
 }
 
 void addExampleStudentList()
