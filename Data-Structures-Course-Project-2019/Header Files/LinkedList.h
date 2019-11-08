@@ -137,11 +137,7 @@ public:
 	}
 
 
-<<<<<<< HEAD
-	string* getList(int number){
-=======
 	string* getList(int number) {
->>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
 		int i = 0;
 		string* names = new string[number];
 		Node* currNode = head;

@@ -1,10 +1,7 @@
 #include <iostream>
 #include <string>
 #include "../Header Files/LinkedList.h"
-<<<<<<< HEAD
-=======
 #include "../Header Files/Stack.h"
->>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
 #include "../Header Files/Sorting.h"
 
 //This is for student linked list.
@@ -21,7 +18,6 @@ int main() {
 	int selection;
 	//This variable for control node number of student list 
 	int studentListNodes = 0;
-	int numberOfNodes = 0;
 	//This variables for stored student credentials
 	int studentNo;
 	std::string studentName, studentSurname, studentDepartment;
@@ -39,12 +35,8 @@ int main() {
 	//While for application menu
 	while (true) {
 		writeOperations();
-<<<<<<< HEAD
-		numberOfNodes = list.NumberOfNode();
-=======
 		numberOfNodes = studentList.NumberOfNode();
 
->>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
 		std::cin >> selection;
 
 		switch (selection)
@@ -90,10 +82,6 @@ int main() {
 
 		case 4:
 			std::cout << "\nStudent List" << std::endl;
-<<<<<<< HEAD
-			std::cout << numberOfNodes << std::endl;
-			list.DisplayList();
-=======
 			studentList.DisplayList();
 			break;
 		case 5:
@@ -170,25 +158,7 @@ int main() {
 				Radix sort(surnames, numberOfNodes);
 				sort.displayRadixSorted();
 			}
->>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
 			break;
-
-		case 5:
-			std::cout << "\Sorted List" << std::endl;
-			if (numberOfNodes == 0)
-			{
-				std::cout << "\List is empty" << std::endl;
-			}
-			else
-			{
-				string* surnames = list.getList(numberOfNodes);
-				Radix sort(surnames, numberOfNodes);
-				sort.displayRadixSorted();
-			}
-		case 6:
-			addExampleStudentList();
-			std::cout << "\Example List has been added" << std::endl;
-
 		default:
 			break;
 		}
@@ -205,10 +175,6 @@ void writeOperations() {
 	std::cout << "2. Delete a student from student linked list" << std::endl;
 	std::cout << "3. Find a student from student linked list" << std::endl;
 	std::cout << "4. Display a student list" << std::endl;
-<<<<<<< HEAD
-	std::cout << "5. Sort the list with radix in order to surnames"<< std::endl;
-	std::cout << "6. Add example list to student linked list" << std::endl;
-=======
 	std::cout << "5. Add a student to Data Structures and Algorithms Course (Stack Push)" << std::endl;
 	std::cout << "6. Delete a last added student from Data Structures and Algorithms Course (Stack Pop)" << std::endl;
 	std::cout << "7. Delete a student from Data Structures and Algorithms Course (Delete student from stack)" << std::endl;
@@ -216,7 +182,6 @@ void writeOperations() {
 	std::cout << "9. Display Data Structures and Algorithms Course list (Stack Display)" << std::endl;
 	std::cout << "10. Add example list to student linked list" << std::endl;
 	std::cout << "11. Sort the list with radix in order to surnames" << std::endl;
->>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list

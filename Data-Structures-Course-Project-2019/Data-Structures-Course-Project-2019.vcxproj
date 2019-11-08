@@ -117,12 +117,8 @@
   <ItemGroup>
     <ClInclude Include="Header Files\LinkedList.h" />
     <ClInclude Include="Header Files\Sorting.h" />
-<<<<<<< HEAD
-=======
     <ClInclude Include="Header Files\Stack.h" />
->>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
     <ClInclude Include="Header Files\Student.h" />
-    <ClInclude Include="Sorting.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp" />
