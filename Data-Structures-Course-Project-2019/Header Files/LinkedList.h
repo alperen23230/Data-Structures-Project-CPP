@@ -4,6 +4,8 @@
 #include <string>
 #include "Student.h"
 
+using std::string;
+
 struct Node {
 	Student student;
 	Node* next;
@@ -119,6 +121,33 @@ public:
 			num++;
 		}
 		std::cout << "Number of Nodes: " << num << std::endl;
+	}
+
+	// Getting number of nodes
+	int NumberOfNode()
+	{
+		int count = 0;
+		Node* currNode = head;
+		while (currNode != NULL)
+		{
+			currNode = currNode->next;
+			count++;
+		}
+		return count;
+	}
+
+
+	string* getList(int number) {
+		int i = 0;
+		string* names = new string[number];
+		Node* currNode = head;
+		while (currNode != NULL)
+		{
+			names[i] = currNode->student.studentSurname;
+			currNode = currNode->next;
+			i++;
+		}
+		return names;
 	}
 
 };

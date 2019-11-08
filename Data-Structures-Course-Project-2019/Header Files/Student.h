@@ -32,7 +32,7 @@ struct Student {
 			std::cout << "Student Surname:" << studentSurname << std::endl;
 			std::cout << "Student Department:" << studentDepartment << std::endl;
 			std::cout << "Student Group:" << groupBySurname << std::endl;
-			std::cout << "Student Data Structures course take count:" << dataStructuresCount << std::endl;
+			std::cout << "Student Data Structures course taken count:" << dataStructuresCount << std::endl;
 			std::cout << "-----------------------------------------------------" << std::endl;
 		}
 		else if (courseType == "DatabaseManagement") {
