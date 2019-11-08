@@ -21,7 +21,11 @@
     <ClInclude Include="Header Files\LinkedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Sorting.h">
+=======
     <ClInclude Include="Header Files\Stack.h">
+>>>>>>> 2a2c1433e330b4110d066f16cca59b775500c1cb
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header Files\Sorting.h">
