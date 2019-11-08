@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <climits>
 #include "../Header Files/LinkedList.h"
 #include "../Header Files/Stack.h"
 #include "../Header Files/Sorting.h"
@@ -39,6 +40,15 @@ int main() {
 
 		std::cin >> selection;
 
+		if (std::cin.fail())
+		{
+			std::cin.clear(); // clear input buffer to restore cin to a usable state
+			std::cin.ignore(INT_MAX, '\n'); // ignore last input
+			std::cout << "You can only enter numbers.\n";
+			std::cout << "Enter a number.\n";
+			std::cin >> selection;
+		}
+
 		switch (selection)
 		{
 		case 1:
@@ -50,34 +60,54 @@ int main() {
 			std::cin >> studentSurname;
 			std::cout << "\nEnter a student department: " ;
 			std::cin >> studentDepartment;
-			
-			addStudentWith(studentListNodes, studentNo, studentName, studentSurname, studentDepartment);
 
-			studentListNodes++;
+			if (std::cin.fail()) {
+				std::cout << "Please insert correctly!";
+				break;
+			}
+			else {
+				addStudentWith(studentListNodes, studentNo, studentName, studentSurname, studentDepartment);
+
+				studentListNodes++;
+			}
+		
 			break;
 		case 2:
 			std::cout << "\nEnter the number of the student you wish to delete from the student list: ";
 			std::cin >> studentNo;
-
-			if (studentList.DeleteNode(studentNo) != 0) {
-				std::cout << "Student deleted from list!!!" << std::endl;
-				studentListNodes--;
+			if (std::cin.fail()) {
+				std::cout << "Please insert correctly!";
+				break;
 			}
 			else {
-				std::cout << "Such a student is not in the student list." << std::endl;
+				if (studentList.DeleteNode(studentNo) != 0) {
+					std::cout << "Student deleted from list!!!" << std::endl;
+					studentListNodes--;
+				}
+				else {
+					std::cout << "Such a student is not in the student list." << std::endl;
+				}
 			}
+			
 			break;
 		case 3:
 			std::cout << "\nEnter the number of the student you wish to find from the student list: ";
 			std::cin >> studentNo;
 
-			if (studentList.FindNode(studentNo) != 0) {
-				std::cout << "Found Student!!!" << std::endl;
-				studentList.FindStudent(studentNo).displayStudent("");
+			if (std::cin.fail()) {
+				std::cout << "Please insert correctly!";
+				break;
 			}
 			else {
-				std::cout << "Such a student is not in the student list." << std::endl;
+				if (studentList.FindNode(studentNo) != 0) {
+					std::cout << "Found Student!!!" << std::endl;
+					studentList.FindStudent(studentNo).displayStudent("");
+				}
+				else {
+					std::cout << "Such a student is not in the student list." << std::endl;
+				}
 			}
+		
 			break;
 
 		case 4:
@@ -89,15 +119,22 @@ int main() {
 			std::cin >> studentNo;
 			std::cout << "\nEnter how many times do you take the lesson: ";
 			std::cin >> courseTakeCount;
-			if (studentList.FindNode(studentNo) != 0) {
-				Student willAddstudent = studentList.FindStudent(studentNo);
-				willAddstudent.dataStructuresCount = courseTakeCount;
-				dataStructuresStack.push(willAddstudent);
-				std::cout << "Student added to Data Structures course successfully!";
+			if (std::cin.fail()) {
+				std::cout << "Please insert correctly!";
+				break;
 			}
 			else {
-				std::cout << "Such a student is not in the student list." << std::endl;
+				if (studentList.FindNode(studentNo) != 0) {
+					Student willAddstudent = studentList.FindStudent(studentNo);
+					willAddstudent.dataStructuresCount = courseTakeCount;
+					dataStructuresStack.push(willAddstudent);
+					std::cout << "Student added to Data Structures course successfully!";
+				}
+				else {
+					std::cout << "Such a student is not in the student list." << std::endl;
+				}
 			}
+		
 			break;
 		case 6:
 			deletedStudentNo = dataStructuresStack.pop();
@@ -110,26 +147,33 @@ int main() {
 			std::cout << "\nEnter the number of the student you wish to delete from the data structures course list: ";
 			std::cin >> studentNo;
 
-			if (dataStructuresStack.FindNode(studentNo) != 0) {
-				while (!dataStructuresStack.isEmpty())
-				{
-					deletedStudentNo = dataStructuresStack.pop();
-					if (studentNo != deletedStudentNo)
-						auxStack.push(studentList.FindStudent(deletedStudentNo));
-				}
-
-				while (!auxStack.isEmpty())
-				{
-					auxStudentNo = auxStack.pop();
-					dataStructuresStack.push(studentList.FindStudent(auxStudentNo));
-				}
-			}
-			else if(studentList.FindNode(studentNo) == 0){
-				std::cout << "Such a student is not in the student list." << std::endl;
+			if (std::cin.fail()) {
+				std::cout << "Please insert correctly!";
+				break;
 			}
 			else {
-				std::cout << "Such a student is not in the data structures course list." << std::endl;
+				if (dataStructuresStack.FindNode(studentNo) != 0) {
+					while (!dataStructuresStack.isEmpty())
+					{
+						deletedStudentNo = dataStructuresStack.pop();
+						if (studentNo != deletedStudentNo)
+							auxStack.push(studentList.FindStudent(deletedStudentNo));
+					}
+
+					while (!auxStack.isEmpty())
+					{
+						auxStudentNo = auxStack.pop();
+						dataStructuresStack.push(studentList.FindStudent(auxStudentNo));
+					}
+				}
+				else if (studentList.FindNode(studentNo) == 0) {
+					std::cout << "Such a student is not in the student list." << std::endl;
+				}
+				else {
+					std::cout << "Such a student is not in the data structures course list." << std::endl;
+				}
 			}
+		
 			break;
 		case 8:
 			if (dataStructuresStack.isEmpty()) {
