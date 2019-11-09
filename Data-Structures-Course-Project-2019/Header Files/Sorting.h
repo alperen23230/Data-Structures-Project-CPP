@@ -4,13 +4,17 @@
 #include "LinkedList.h"
 #include "Student.h"
 
+
 using std::string;
+
+LinkedList list;
+
+
 
 
 struct Radix {
 	int lenght;
 	string* surnames;
-
 
 	Radix(string list[], int listLenght) {
 		surnames = list;
@@ -80,12 +84,43 @@ public:
 	}
 
 	// Display sorted list
-	void displayRadixSorted()
+	void sortWithRadix()
 	{
 		radixSort(surnames, lenght);
-		for (size_t i = 0; i < lenght; i++)
+	}
+
+};
+
+struct Selection
+{
+	int lenght,minIndex;
+	string* names;
+
+	Selection(string list[], int listLenght) {
+		names = list;
+		lenght = listLenght;
+	}
+
+	void swap(string *xPointer, string *yPointer)
+	{
+		string temp = *xPointer;
+		*xPointer = *yPointer;
+		*yPointer = temp;
+	}
+
+	void sortWithSelection()
+	{
+		for (size_t i = 0; i < lenght - 1; i++)
 		{
-			std::cout << surnames[i] << std::endl;
+			minIndex = i;
+			for (size_t j = i+1; j < lenght; j++)
+			{
+				if (names[j] < names[minIndex])
+				{
+					minIndex = j;
+				}
+			}
+			swap(&names[minIndex], &names[i]);
 		}
 	}
 

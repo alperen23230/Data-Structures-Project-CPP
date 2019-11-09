@@ -136,18 +136,32 @@ public:
 		return count;
 	}
 
-
-	string* getList(int number) {
-		int i = 0;
-		string* names = new string[number];
+	void displayRadixSortedList(string surname) {
 		Node* currNode = head;
+		int currentIndex = 1;
+
 		while (currNode != NULL)
 		{
-			names[i] = currNode->student.studentSurname;
+			if (currNode->student.studentSurname == surname)
+			{
+				currNode->student.displayStudent("");
+			}
 			currNode = currNode->next;
-			i++;
 		}
-		return names;
+	}
+
+	void displaySelectionSortedList(string name) {
+		Node* currNode = head;
+		int currentIndex = 1;
+
+		while (currNode != NULL)
+		{
+			if (currNode->student.studentName == name)
+			{
+				currNode->student.displayStudent("");
+			}
+			currNode = currNode->next;
+		}
 	}
 
 };

@@ -7,6 +7,8 @@
 #include "../Header Files/Stack.h"
 #include "../Header Files/Sorting.h"
 
+// This is for getting students which are taking data structure class
+LinkedList willAddstudent;
 //This is for student linked list.
 LinkedList studentList;
 //This is for Data Structures and Algorithms Course list (Stack).
@@ -195,18 +197,40 @@ int main() {
 			std::cout << "\nExample List has been added" << std::endl;
 			break;
 		case 11:
-			std::cout << "\Sorted List" << std::endl;
 			if (numberOfNodes == 0)
 			{
 				std::cout << "\List is empty" << std::endl;
 			}
 			else
 			{
-				string* surnames = studentList.getList(numberOfNodes);
+				std::cout << "\Sorted List" << std::endl;
+				string* surnames = dataStructuresStack.getDataStructureList(numberOfNodes);
 				Radix sort(surnames, numberOfNodes);
-				sort.displayRadixSorted();
+				sort.sortWithRadix();
+				for (size_t i = 0; i < numberOfNodes; i++)
+				{
+					studentList.displayRadixSortedList(surnames[i]);
+				}
 			}
 			break;
+		case 12: 
+			if (numberOfNodes == 0)
+			{
+				std::cout << "\List is empty" << std::endl;
+			}
+			else
+			{
+				std::cout << "\Sorted List" << std::endl;
+				string* names = dataStructuresStack.getDataStructureList2(numberOfNodes); // It will be edit when the database avl tree is added.				
+				Selection sort(names, numberOfNodes);									  // Now it is sorting data structure in order to names.
+				sort.sortWithSelection();
+				for (size_t i = 0; i < numberOfNodes; i++)
+				{
+					studentList.displaySelectionSortedList(names[i]);
+				}
+
+			}
+			
 		default:
 			break;
 		}
@@ -229,7 +253,8 @@ void writeOperations() {
 	std::cout << "8. Top student in the Data Structures and Algorithms Course (Stack Top)" << std::endl;
 	std::cout << "9. Display Data Structures and Algorithms Course list (Stack Display)" << std::endl;
 	std::cout << "10. Add example list to student linked list" << std::endl;
-	std::cout << "11. Sort the list with radix in order to surnames" << std::endl;
+	std::cout << "11. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
+	std::cout << "12. Sort the student list of Database Management Course with selection sort in order to surnames" << std::endl; // It will be edit when the database avl tree is added.
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
