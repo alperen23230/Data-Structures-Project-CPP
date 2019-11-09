@@ -124,7 +124,7 @@ public:
 	}
 
 	// Getting number of nodes
-	int NumberOfNode()
+	int numberOfNode()
 	{
 		int count = 0;
 		Node* currNode = head;
@@ -163,6 +163,21 @@ public:
 			currNode = currNode->next;
 		}
 	}
+
+	void displayQuickSortedList(int number) {
+		Node* currNode = head;
+		int currentIndex = 1;
+
+		while (currNode != NULL)
+		{
+			if (currNode->student.studentNo == number)
+			{
+				currNode->student.displayStudent("");
+			}
+			currNode = currNode->next;
+		}
+	}
+
 
 };
 

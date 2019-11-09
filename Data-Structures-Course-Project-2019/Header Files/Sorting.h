@@ -93,7 +93,7 @@ public:
 
 struct Selection
 {
-	int lenght,minIndex;
+	int lenght, minIndex;
 	string* names;
 
 	Selection(string list[], int listLenght) {
@@ -113,7 +113,7 @@ struct Selection
 		for (size_t i = 0; i < lenght - 1; i++)
 		{
 			minIndex = i;
-			for (size_t j = i+1; j < lenght; j++)
+			for (size_t j = i + 1; j < lenght; j++)
 			{
 				if (names[j] < names[minIndex])
 				{
@@ -122,6 +122,61 @@ struct Selection
 			}
 			swap(&names[minIndex], &names[i]);
 		}
+	}
+
+};
+
+struct Quick
+{
+	int lenght;
+	int* numbers;
+
+	Quick(int list[], int listLenght)
+	{
+		lenght = listLenght;
+		numbers = list;
+	}
+
+
+	void swap(int* x, int* y)
+	{
+		int temp = *x;
+		*x = *y;
+		*y = temp;
+	}
+
+	int partition(int list[], int low, int high)
+	{
+		int pivot = list[high];
+		int i = low - 1;
+
+		for (int j = low; j < high; j++)
+		{
+			if (list[j] < pivot)
+			{
+				i++;
+				swap(&list[j], &list[i]);
+			}
+		}
+		swap(&list[i + 1], &list[high]);
+		return i + 1;
+	}
+
+	void quickSort(int list[], int low, int high)
+	{
+		if (low < high)
+		{
+			int pivot = partition(list, low, high);
+
+			quickSort(list, low, pivot - 1); // Sorting left pivot numbers
+			quickSort(list, pivot + 1, high);  // Sorting right pivot numbers
+		}
+	}
+
+	void sortWithQuickSort()
+	{
+		quickSort(numbers, 0, lenght - 1);
+		
 	}
 
 };

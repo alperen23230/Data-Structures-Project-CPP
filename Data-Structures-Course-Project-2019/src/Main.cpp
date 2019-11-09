@@ -14,6 +14,8 @@ LinkedList studentList;
 //This is for Data Structures and Algorithms Course list (Stack).
 Stack dataStructuresStack;
 
+
+
 void writeOperations();
 void addStudentWith(int nodeCount, int studentNo, std::string studentName, std::string studentSurname, std::string studentDepartment);
 void addExampleStudentList();
@@ -40,7 +42,7 @@ int main() {
 	//While for application menu
 	while (true) {
 		writeOperations();
-		numberOfNodes = studentList.NumberOfNode();
+		numberOfNodes = studentList.numberOfNode();
 
 		std::cin >> selection;
 
@@ -205,7 +207,7 @@ int main() {
 			else
 			{
 				std::cout << "\nSorted List" << std::endl;
-				string* surnames = dataStructuresStack.getDataStructureList(numberOfNodes);
+				string* surnames = dataStructuresStack.getDataStructureSurnameList(numberOfNodes);
 				Radix sort(surnames, numberOfNodes);
 				sort.sortWithRadix();
 				for (size_t i = 0; i < numberOfNodes; i++)
@@ -223,15 +225,36 @@ int main() {
 			else
 			{
 				std::cout << "\nSorted List" << std::endl;
-				string* names = dataStructuresStack.getDataStructureList2(numberOfNodes); // It will be edit when the database avl tree is added.				
+				string* names = dataStructuresStack.getDataStructureNameList(numberOfNodes); // It will be edit when the database avl tree is added.				
 				Selection sort(names, numberOfNodes);									  // Now it is sorting data structure in order to names.
 				sort.sortWithSelection();
+
 				for (size_t i = 0; i < numberOfNodes; i++)
 				{
 					studentList.displaySelectionSortedList(names[i]);
 				}
-
 			}
+			break;
+		case 13:
+			numberOfNodes = dataStructuresStack.getNumberOfNode();
+			if (numberOfNodes == 0)
+			{
+				std::cout << "\nList is empty" << std::endl;
+			}
+			else
+			{
+				std::cout << "\Sorted the student list of Data Structures Course with quick sort in order to numbers" << std::endl;
+				int* numbers = dataStructuresStack.getDataStructureNumberList(numberOfNodes);
+				Quick sort(numbers,numberOfNodes);
+				sort.sortWithQuickSort();
+				for (size_t i = 0; i < numberOfNodes; i++)
+				{
+					studentList.displayQuickSortedList(numbers[i]);
+				}
+			}
+			break;
+			
+
 			
 		default:
 			break;
@@ -257,6 +280,7 @@ void writeOperations() {
 	std::cout << "10. Add example list to student linked list" << std::endl;
 	std::cout << "11. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
 	std::cout << "12. Sort the student list of Database Management Course with selection sort in order to names" << std::endl; // It will be edit when the database avl tree is added.
+	std::cout << "13. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl; // It will be edit when the database avl tree is added.
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
