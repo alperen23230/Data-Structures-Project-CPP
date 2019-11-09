@@ -42,6 +42,18 @@ public:
 		std::cout << "Number of Nodes: " << num << std::endl;
 	}
 
+	int getNumberOfNode() {
+		int num = 0;
+		Node* currNode = head;
+
+		while (currNode != NULL)
+		{
+			currNode = currNode->next;
+			num++;
+		}
+		return num;
+	}
+
 	string* getDataStructureList(int number) {
 		int i = 0;
 		string* surnames = new string[number];

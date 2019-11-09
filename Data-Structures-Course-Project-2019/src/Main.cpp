@@ -197,13 +197,14 @@ int main() {
 			std::cout << "\nExample List has been added" << std::endl;
 			break;
 		case 11:
+			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			if (numberOfNodes == 0)
 			{
-				std::cout << "\List is empty" << std::endl;
+				std::cout << "\nList is empty" << std::endl;
 			}
 			else
 			{
-				std::cout << "\Sorted List" << std::endl;
+				std::cout << "\nSorted List" << std::endl;
 				string* surnames = dataStructuresStack.getDataStructureList(numberOfNodes);
 				Radix sort(surnames, numberOfNodes);
 				sort.sortWithRadix();
@@ -214,13 +215,14 @@ int main() {
 			}
 			break;
 		case 12: 
+			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			if (numberOfNodes == 0)
 			{
-				std::cout << "\List is empty" << std::endl;
+				std::cout << "\nList is empty" << std::endl;
 			}
 			else
 			{
-				std::cout << "\Sorted List" << std::endl;
+				std::cout << "\nSorted List" << std::endl;
 				string* names = dataStructuresStack.getDataStructureList2(numberOfNodes); // It will be edit when the database avl tree is added.				
 				Selection sort(names, numberOfNodes);									  // Now it is sorting data structure in order to names.
 				sort.sortWithSelection();
@@ -254,7 +256,7 @@ void writeOperations() {
 	std::cout << "9. Display Data Structures and Algorithms Course list (Stack Display)" << std::endl;
 	std::cout << "10. Add example list to student linked list" << std::endl;
 	std::cout << "11. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
-	std::cout << "12. Sort the student list of Database Management Course with selection sort in order to surnames" << std::endl; // It will be edit when the database avl tree is added.
+	std::cout << "12. Sort the student list of Database Management Course with selection sort in order to names" << std::endl; // It will be edit when the database avl tree is added.
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
