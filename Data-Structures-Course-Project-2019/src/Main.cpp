@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <climits>
+#include <cctype>
 #include "../Header Files/LinkedList.h"
 #include "../Header Files/Stack.h"
 #include "../Header Files/Sorting.h"
@@ -53,18 +55,20 @@ int main() {
 		{
 		case 1:
 			std::cout << "\nEnter a student no: " ;
-			std::cin >> studentNo;
+			std::cin >> studentNo; 
 			std::cout << "\nEnter a student name: " ;
-			std::cin >> studentName;
+			std::cin >> studentName; if (std::any_of(studentName.begin(), studentName.end(), ::isdigit)) { std::cout << "Student name cannot contain digit!"; break; }
 			std::cout << "\nEnter a student surname: " ;
-			std::cin >> studentSurname;
-			std::cout << "\nEnter a student department: " ;
-			std::cin >> studentDepartment;
+			std::cin >> studentSurname; if (std::any_of(studentSurname.begin(), studentSurname.end(), ::isdigit)) { std::cout << "Student surname cannot contain digit!"; break; }
+			std::cout << "\nEnter a student department: " ; 
+			std::cin >> studentDepartment; if (std::any_of(studentDepartment.begin(), studentDepartment.end(), ::isdigit)) { std::cout << "Student department cannot contain digit!"; break; }
 
 			if (std::cin.fail()) {
 				std::cout << "Please insert correctly!";
 				break;
 			}
+
+
 			else {
 				addStudentWith(studentListNodes, studentNo, studentName, studentSurname, studentDepartment);
 
