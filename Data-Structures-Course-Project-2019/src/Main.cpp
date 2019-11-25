@@ -6,6 +6,7 @@
 #include "../Header Files/LinkedList.h"
 #include "../Header Files/Stack.h"
 #include "../Header Files/Sorting.h"
+#include "../Header Files/AVLTree.h"
 
 // This is for getting students which are taking data structure class
 LinkedList willAddstudent;
@@ -13,8 +14,8 @@ LinkedList willAddstudent;
 LinkedList studentList;
 //This is for Data Structures and Algorithms Course list (Stack).
 Stack dataStructuresStack;
-
-
+//This is for Database Management Systems Course list (AVL Tree).
+AVL databaseAVLTree;
 
 void writeOperations();
 void addStudentWith(int nodeCount, int studentNo, std::string studentName, std::string studentSurname, std::string studentDepartment);
@@ -199,6 +200,64 @@ int main() {
 			std::cout << "\nExample List has been added" << std::endl;
 			break;
 		case 11:
+			std::cout << "\nEnter the number of the student you want to add to Database Management System Course: ";
+			std::cin >> studentNo;
+			std::cout << "\nEnter how many times do you take the lesson: ";
+			std::cin >> courseTakeCount;
+			if (std::cin.fail()) {
+				std::cout << "Please insert correctly!";
+				break;
+			}
+			else {
+				if (studentList.FindNode(studentNo) != 0) {
+					Student willAddstudent = studentList.FindStudent(studentNo);
+					willAddstudent.databaseManagementSystemCount = courseTakeCount;
+					databaseAVLTree.insert(willAddstudent);
+					std::cout << "Student added to Database Management System course successfully!" <<std::endl;
+				}
+				else {
+					std::cout << "Such a student is not in the student list." << std::endl;
+				}
+			}
+			break;
+		case 12:
+			std::cout << "\nEnter the surname of the student you want to delete from Database Management System Course: ";
+			std::cin >> studentSurname; if (std::any_of(studentSurname.begin(), studentSurname.end(), ::isdigit)) { std::cout << "Student surname cannot contain digit!"; break; }
+			if (std::cin.fail()) {
+				std::cout << "Please insert correctly!";
+				break;
+			}
+			else {
+				 
+					if (databaseAVLTree.search(studentSurname) == NULL) {
+						std::cout << "Such a student is not in the database management system course list." << std::endl;
+					}
+					else {
+						databaseAVLTree.deleteNode(studentSurname);
+						databaseAVLTree.display();
+					}
+			}
+			break;
+		case 13:
+			std::cout << "\nEnter the surname of the student you want to find from Database Management System Course: ";
+			std::cin >> studentSurname; if (std::any_of(studentSurname.begin(), studentSurname.end(), ::isdigit)) { std::cout << "Student surname cannot contain digit!"; break; }
+			if (std::cin.fail()) {
+				std::cout << "Please insert correctly!";
+				break;
+			}
+			else {
+				if (databaseAVLTree.search(studentSurname) == NULL) {
+					std::cout << "Such a student is not in the database management system course list." << std::endl;
+				}
+				else {
+					databaseAVLTree.search(studentSurname)->student.displayStudent("DatabaseManagement");
+				}
+			}
+			break;
+		case 14:
+			databaseAVLTree.display();
+			break;
+		case 15:
 			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			if (numberOfNodes == 0)
 			{
@@ -216,7 +275,7 @@ int main() {
 				}
 			}
 			break;
-		case 12: 
+		case 16: 
 			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			if (numberOfNodes == 0)
 			{
@@ -235,7 +294,7 @@ int main() {
 				}
 			}
 			break;
-		case 13:
+		case 17:
 			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			if (numberOfNodes == 0)
 			{
@@ -278,9 +337,13 @@ void writeOperations() {
 	std::cout << "8. Top student in the Data Structures and Algorithms Course (Stack Top)" << std::endl;
 	std::cout << "9. Display Data Structures and Algorithms Course list (Stack Display)" << std::endl;
 	std::cout << "10. Add example list to student linked list" << std::endl;
-	std::cout << "11. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
-	std::cout << "12. Sort the student list of Database Management Course with selection sort in order to names" << std::endl; // It will be edit when the database avl tree is added.
-	std::cout << "13. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl; // It will be edit when the database avl tree is added.
+	std::cout << "11. Add a student to Database Management Systems Course (AVL Tree Insertion)" << std::endl;
+	std::cout << "12. Delete a student from Database Management Systems Course (AVL Tree Deletion)" << std::endl;
+	std::cout << "13. Find a student from Database Management Systems Course (AVL Tree Search)" << std::endl;
+	std::cout << "14. Display Database Management Systems Course Students (AVL Tree Display)" << std::endl;
+	std::cout << "15. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
+	std::cout << "16. Sort the student list of Database Management Course with selection sort in order to names" << std::endl; // It will be edit when the database avl tree is added.
+	std::cout << "17. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl; // It will be edit when the database avl tree is added.
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
