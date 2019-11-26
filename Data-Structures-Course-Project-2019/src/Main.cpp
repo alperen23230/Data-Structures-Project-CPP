@@ -439,9 +439,10 @@ void writeOperations() {
 	std::cout << "12. Delete a student from Database Management Systems Course (AVL Tree Deletion)" << std::endl;
 	std::cout << "13. Find a student from Database Management Systems Course (AVL Tree Search)" << std::endl;
 	std::cout << "14. Display Database Management Systems Course Students (AVL Tree Display)" << std::endl;
-	std::cout << "15. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
 	std::cout << "16. Sort the student list of onyl Database Management Course with selection sort in order to names" << std::endl;
 	std::cout << "17. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl;
+	std::cout << "16. Sort the student list of Database Management Course with selection sort in order to names" << std::endl; // It will be edit when the database avl tree is added.
+	std::cout << "17. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl; // It will be edit when the database avl tree is added.
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
