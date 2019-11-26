@@ -8,14 +8,25 @@ struct Student {
 	std::string studentSurname;
 	std::string studentDepartment;
 	int dataStructuresCount;
-	int databaseManagementSystemCount;
+	int studentdatabaseManagementSystemCount;
 	std::string groupByNo;
 	std::string groupBySurname;
 	
 	//Constructor of struct
 	Student(int no, std::string name, std::string surname, std::string department) {
 		dataStructuresCount = 0;
-		databaseManagementSystemCount = 0;
+		studentdatabaseManagementSystemCount = 0;
+		studentNo = no;
+		studentName = name;
+		studentSurname = surname;
+		studentDepartment = department;
+		groupByNo = FindNoGroup(no);
+		groupBySurname = FindSurnameGroup(surname);
+	}
+	// Constructor with count
+	Student(int no, std::string name, std::string surname, std::string department,int databaseManagementSystemCount) {
+		dataStructuresCount = 0;
+		studentdatabaseManagementSystemCount = databaseManagementSystemCount;
 		studentNo = no;
 		studentName = name;
 		studentSurname = surname;
@@ -42,6 +53,7 @@ struct Student {
 			std::cout << "Student Surname:" << studentSurname << std::endl;
 			std::cout << "Student Department:" << studentDepartment << std::endl;
 			std::cout << "Student Group:" << groupByNo << std::endl;
+			std::cout << "Student Data Management course taken count:" << studentdatabaseManagementSystemCount << std::endl;
 			std::cout << "-----------------------------------------------------" << std::endl;
 		}
 		else {
