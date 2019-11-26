@@ -326,15 +326,72 @@ int main() {
 			}
 			else
 			{
-				std::cout << "\nStudent list of Data Management Course is sorted with selection sort in order to names" << std::endl;
-				string* names = &arr[0];
-				Selection sort(names, numberOfNodes);
-				sort.sortWithSelection();
+				std::cout << "\nStudent list of only Data Management Course is sorted with selection sort in order to names" << std::endl;
+				string* namesDataManagement = &arr[0];
+				int nDManagement = arr.size();
 
-				for (size_t i = 0; i < numberOfNodes; i++)
+				int nDStructure = dataStructuresStack.getNumberOfNode();;
+				string* namesDataStructure = dataStructuresStack.getDataStructureNameList(nDStructure);
+
+				bool isOnlyDataManagement = false;
+				std::vector<string> namesVector;
+
+				if (nDStructure == 0)
 				{
-					studentList.displaySelectionSortedList(names[i]);
+					for (int i = 0; i < nDManagement; i++)
+					{
+						namesVector.push_back(namesDataManagement[i]);
+					}
+
 				}
+				else
+				{
+					for (int i = 0; i < nDManagement; i++)
+					{
+						isOnlyDataManagement = false;
+						for (int j = 0; j < nDStructure; j++)
+						{
+							if (namesDataManagement[i] == namesDataStructure[j])
+							{
+								isOnlyDataManagement = false;
+								break;
+							}
+							else isOnlyDataManagement = true;
+						}
+						if (isOnlyDataManagement)
+						{
+							namesVector.push_back(namesDataManagement[i]);
+						}
+					}
+				}
+
+				int nNames = namesVector.size();
+
+				if (nNames == 0)
+				{
+					std::cout << "\nThere is no student who takes only Data Management Course" << std::endl;
+
+				}
+				else
+				{
+					string* names = &namesVector[0];
+					if (nNames == 1)
+					{
+						studentList.displaySelectionSortedList(names[0]);
+					}
+					else
+					{
+
+					Selection sort(names, nNames);
+					sort.sortWithSelection();
+					for (size_t i = 0; i < nNames; i++)
+					{
+						studentList.displaySelectionSortedList(names[i]);
+					}
+					}
+				}
+
+				
 			}
 			break;
 		}
@@ -383,8 +440,8 @@ void writeOperations() {
 	std::cout << "13. Find a student from Database Management Systems Course (AVL Tree Search)" << std::endl;
 	std::cout << "14. Display Database Management Systems Course Students (AVL Tree Display)" << std::endl;
 	std::cout << "15. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
-	std::cout << "16. Sort the student list of Database Management Course with selection sort in order to names" << std::endl; // It will be edit when the database avl tree is added.
-	std::cout << "17. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl; // It will be edit when the database avl tree is added.
+	std::cout << "16. Sort the student list of onyl Database Management Course with selection sort in order to names" << std::endl;
+	std::cout << "17. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl;
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
