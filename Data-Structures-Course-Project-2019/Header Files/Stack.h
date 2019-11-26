@@ -7,6 +7,10 @@ public:
 	Stack() { head = NULL; }
 	~Stack() {}
 
+	std::vector<int> numberList;
+	std::vector<int> otherDepartmentNumberList;
+
+
 	Student Top() {
 		if (head == NULL) {
 			std::cout << "Stack is Empty" << std::endl;
@@ -101,5 +105,34 @@ public:
 			i++;
 		}
 		return numbers;
+	}
+
+
+	std::vector<int> getDataStructureMorethanOneNumberList() {
+		numberList.clear();
+		Node* currNode = head;
+		while (currNode != NULL)
+		{
+			if (currNode->student.dataStructuresCount > 1)
+			{
+				numberList.push_back(currNode->student.studentNo);
+			}
+			currNode = currNode->next;
+		}
+		return numberList;
+	}
+
+	std::vector<int> getDataStructureOtherDepartmentNumberList() {
+		otherDepartmentNumberList.clear();
+		Node* currNode = head;
+		while (currNode != NULL)
+		{
+			if (currNode->student.studentDepartment != "bm" && currNode->student.dataStructuresCount > 0)
+			{
+				otherDepartmentNumberList.push_back(currNode->student.studentNo);
+			}
+			currNode = currNode->next;
+		}
+		return otherDepartmentNumberList;
 	}
 };
