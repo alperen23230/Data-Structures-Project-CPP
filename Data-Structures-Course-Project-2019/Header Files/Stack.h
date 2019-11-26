@@ -54,6 +54,22 @@ public:
 		return num;
 	}
 
+	string* getDataStructureNameList(int number) {
+		int i = 0;
+		string* names = new string[number];
+		Node* currNode = head;
+		while (currNode != NULL)
+		{
+			if (currNode->student.dataStructuresCount > 0)
+			{
+				names[i] = currNode->student.studentName;
+			}
+			currNode = currNode->next;
+			i++;
+		}
+		return names;
+	}
+
 	string* getDataStructureSurnameList(int number) {
 		int i = 0;
 		string* surnames = new string[number];
