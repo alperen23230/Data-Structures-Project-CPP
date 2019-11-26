@@ -62,7 +62,6 @@ public:
 		{
 			if (currNode->student.dataStructuresCount > 0)
 			{
-				//std::cout << surnames[i] << std::endl;
 				surnames[i] = currNode->student.studentSurname;
 			}
 			currNode = currNode->next;
@@ -71,22 +70,6 @@ public:
 		return surnames;
 	}
 
-	string* getDataStructureNameList(int number) { // It will be edit when the database avl tree is added.
-		int i = 0;
-		string* names = new string[number];
-		Node* currNode = head;
-		while (currNode != NULL)
-		{
-			if (currNode->student.dataStructuresCount > 0)
-			{
-				//std::cout << names[i] << std::endl;
-				names[i] = currNode->student.studentName;
-			}
-			currNode = currNode->next;
-			i++;
-		}
-		return names;
-	}
 
 	int* getDataStructureNumberList(int number) {
 		int i = 0;
@@ -96,7 +79,6 @@ public:
 		{
 			if (currNode->student.dataStructuresCount > 0)
 			{
-				//std::cout << numbers[i] << std::endl;
 				numbers[i] = currNode->student.studentNo;
 			}
 			currNode = currNode->next;

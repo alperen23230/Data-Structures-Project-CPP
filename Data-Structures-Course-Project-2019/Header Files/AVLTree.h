@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Student.h"
 #include <string>
+#include <vector> 
 
 using namespace std;
 
@@ -13,10 +14,12 @@ class AVL
 		node* left;
 		node* right;
 		int height;
-		node(int no, string name, string surname, string department) : student(no, name, surname, department) {}
+		node(int no, string name, string surname, string department, int databaseManagementSystemCount) : student(no, name, surname, department,databaseManagementSystemCount) {}
 	};
 
 	node* root;
+	std::vector<string> nameList;
+	std::vector<string> surnameList;
 
 	void makeEmpty(node* t)
 	{
@@ -31,7 +34,7 @@ class AVL
 	{
 		if (t == NULL)
 		{
-			t = new node(newStudent.studentNo, newStudent.studentName, newStudent.studentSurname, newStudent.studentDepartment);
+			t = new node(newStudent.studentNo, newStudent.studentName, newStudent.studentSurname, newStudent.studentDepartment, newStudent.studentdatabaseManagementSystemCount);
 			t->height = 0;
 			t->left = t->right = NULL;
 		}
@@ -277,5 +280,42 @@ public:
 	{
 		inorder(root);
 		cout << endl;
+	}
+
+
+	std::vector<string> getDataManagementNameList()
+	{
+		nameList.clear();
+		getNames(root);
+		return nameList;
+	}
+
+	void getNames(node* t)
+	{
+		if (t == NULL)
+		{
+	    return;
+		}
+		getNames(t->left);
+		nameList.push_back(t->student.studentName);
+		getNames(t->right);
+	}
+
+	std::vector<string> getDataManagementSurnameList()
+	{
+		surnameList.clear();
+		getSurnames(root);
+		return surnameList;
+	}
+
+	void getSurnames(node* t)
+	{
+		if (t == NULL)
+		{
+			return;
+		}
+		getSurnames(t->left);
+		surnameList.push_back(t->student.studentSurname);
+		getSurnames(t->right);
 	}
 };

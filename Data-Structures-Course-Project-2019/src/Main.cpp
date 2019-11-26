@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <climits>
 #include <cctype>
+#include <vector> 
 #include "../Header Files/LinkedList.h"
 #include "../Header Files/Stack.h"
 #include "../Header Files/Sorting.h"
@@ -32,7 +33,7 @@ int main() {
 	//For deletion student
 	int deletedStudentNo = 0;
 	//This variable stores course take count of student
-	int courseTakeCount;
+	int courseTakeCount = 0;
 	//This variable for number of nodes
 	int numberOfNodes = 0;
 	//This stack uses in a deletion of spesific student in stack
@@ -126,7 +127,7 @@ int main() {
 		case 5:
 			std::cout << "\nEnter the number of the student you want to add to Data Structures Course: ";
 			std::cin >> studentNo;
-			std::cout << "\nEnter how many times do you take the lesson: ";
+			std::cout << "\nEnter how many times did you take the lesson: ";
 			std::cin >> courseTakeCount;
 			if (std::cin.fail()) {
 				std::cout << "Please insert correctly!";
@@ -202,7 +203,7 @@ int main() {
 		case 11:
 			std::cout << "\nEnter the number of the student you want to add to Database Management System Course: ";
 			std::cin >> studentNo;
-			std::cout << "\nEnter how many times do you take the lesson: ";
+			std::cout << "\nEnter how many times did you take the lesson: ";
 			std::cin >> courseTakeCount;
 			if (std::cin.fail()) {
 				std::cout << "Please insert correctly!";
@@ -211,7 +212,7 @@ int main() {
 			else {
 				if (studentList.FindNode(studentNo) != 0) {
 					Student willAddstudent = studentList.FindStudent(studentNo);
-					willAddstudent.databaseManagementSystemCount = courseTakeCount;
+					willAddstudent.studentdatabaseManagementSystemCount = courseTakeCount;
 					databaseAVLTree.insert(willAddstudent);
 					std::cout << "Student added to Database Management System course successfully!" <<std::endl;
 				}
@@ -258,34 +259,76 @@ int main() {
 			databaseAVLTree.display();
 			break;
 		case 15:
+		{
 			numberOfNodes = dataStructuresStack.getNumberOfNode();
-			if (numberOfNodes == 0)
+			std::vector<string> arr;
+			arr = databaseAVLTree.getDataManagementSurnameList(); // Get Data Management Surname List
+
+			if (arr.size() == 0)
 			{
-				std::cout << "\nList is empty" << std::endl;
+				std::cout << "\nThere is no common student" << std::endl;
 			}
 			else
 			{
-				std::cout << "\nSorted List" << std::endl;
-				string* surnames = dataStructuresStack.getDataStructureSurnameList(numberOfNodes);
-				Radix sort(surnames, numberOfNodes);
-				sort.sortWithRadix();
-				for (size_t i = 0; i < numberOfNodes; i++)
+				std::cout << "\n Students of both take classes are sorted in order to surnames" << std::endl;
+
+				string* surnamesDataManagement = &arr[0];
+				int nDManagement = arr.size();
+				string* surnamesDataStructure = dataStructuresStack.getDataStructureSurnameList(numberOfNodes); // Get Data Structure Surname List
+				int nDStructure = numberOfNodes;
+
+				std::vector<string> surnamesVector;
+
+				for (int i = 0; i < nDManagement; i++)
 				{
-					studentList.displayRadixSortedList(surnames[i]);
+
+					for (int j = 0; j < nDStructure; j++)
+					{
+						if (surnamesDataManagement[i] == surnamesDataStructure[j])
+						{
+							surnamesVector.push_back(surnamesDataStructure[j]);
+						}
+					}
 				}
+
+				int nSurnames = surnamesVector.size();
+				
+				if (nSurnames == 0)
+				{
+
+					std::cout << "\nThere is no common student" << std::endl;
+
+				}
+				else
+				{
+					string* surnames = &surnamesVector[0];
+
+					Radix sort(surnames, nSurnames);
+					sort.sortWithRadix();
+					for (size_t i = 0; i < nSurnames; i++)
+					{
+						studentList.displayRadixSortedList(surnames[i]);
+					}
+				}
+
 			}
 			break;
+		}
 		case 16: 
-			numberOfNodes = dataStructuresStack.getNumberOfNode();
+		{
+			std::vector<string> arr;
+			arr = databaseAVLTree.getDataManagementNameList();
+			numberOfNodes = arr.size();
+
 			if (numberOfNodes == 0)
 			{
 				std::cout << "\nList is empty" << std::endl;
 			}
 			else
 			{
-				std::cout << "\nSorted List" << std::endl;
-				string* names = dataStructuresStack.getDataStructureNameList(numberOfNodes); // It will be edit when the database avl tree is added.				
-				Selection sort(names, numberOfNodes);									  // Now it is sorting data structure in order to names.
+				std::cout << "\nStudent list of Data Management Course is sorted with selection sort in order to names" << std::endl;
+				string* names = &arr[0];
+				Selection sort(names, numberOfNodes);
 				sort.sortWithSelection();
 
 				for (size_t i = 0; i < numberOfNodes; i++)
@@ -294,6 +337,7 @@ int main() {
 				}
 			}
 			break;
+		}
 		case 17:
 			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			if (numberOfNodes == 0)
@@ -302,7 +346,7 @@ int main() {
 			}
 			else
 			{
-				std::cout << "\Sorted the student list of Data Structures Course with quick sort in order to numbers" << std::endl;
+				std::cout << "\nStudent list of Data Structures Course is sorted with quick sort in order to numbers" << std::endl;
 				int* numbers = dataStructuresStack.getDataStructureNumberList(numberOfNodes);
 				Quick sort(numbers,numberOfNodes);
 				sort.sortWithQuickSort();
@@ -312,9 +356,6 @@ int main() {
 				}
 			}
 			break;
-			
-
-			
 		default:
 			break;
 		}
