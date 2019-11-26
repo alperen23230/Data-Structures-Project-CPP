@@ -20,6 +20,7 @@ class AVL
 	node* root;
 	std::vector<string> nameList;
 	std::vector<string> surnameList;
+	std::vector<int> numberList;
 
 	void makeEmpty(node* t)
 	{
@@ -317,5 +318,47 @@ public:
 		getSurnames(t->left);
 		surnameList.push_back(t->student.studentSurname);
 		getSurnames(t->right);
+	}
+
+	std::vector<int> getDataManagementOtherDepartmentNumberList()
+	{
+		numberList.clear();
+		getOtherDepartmenNumbers(root);
+		return numberList;
+	}
+
+	void getOtherDepartmenNumbers(node* t)
+	{
+		if (t == NULL)
+		{
+			return;
+		}
+		getOtherDepartmenNumbers(t->left);
+		if (t->student.studentDepartment != "bm")
+		{
+			numberList.push_back(t->student.studentNo);
+		}
+		getOtherDepartmenNumbers(t->right);
+	}
+
+	std::vector<int> getDataManagementMorethanOneNumberList()
+	{
+		numberList.clear();
+		getMorethanOneNumbers(root);
+		return numberList;
+	}
+
+	void getMorethanOneNumbers(node* t)
+	{
+		if (t == NULL)
+		{
+			return;
+		}
+		getMorethanOneNumbers(t->left);
+		if (t->student.studentdatabaseManagementSystemCount > 1)
+		{
+			numberList.push_back(t->student.studentNo);
+		}
+		getMorethanOneNumbers(t->right);
 	}
 };
