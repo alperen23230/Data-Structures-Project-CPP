@@ -260,6 +260,174 @@ int main() {
 			break;
 		case 15:
 		{
+			std::vector<int> arrDM;
+			arrDM = databaseAVLTree.getDataManagementMorethanOneNumberList();
+
+			std::vector<int> arrDS;
+			arrDS = dataStructuresStack.getDataStructureMorethanOneNumberList();
+
+
+			if (arrDM.size() == 0 || arrDS.size() == 0)
+			{
+				std::cout << "\nThere is no common student" << std::endl;
+			}
+			else
+			{
+				std::cout << "\n Students of both take classes more than one" << std::endl;
+
+				std::vector<int> numbersVector;
+
+				for (int x : arrDM)
+				{
+					for (int y : arrDS)
+					{
+						if (x == y)
+						{
+							numbersVector.push_back(y);
+						}
+					}
+				}
+
+				if (numbersVector.size() == 0)
+				{
+					std::cout << "\nThere is no common student" << std::endl;
+				}
+				else
+				{
+					for (int x : numbersVector)
+					{
+						studentList.displayQuickSortedList(x);
+					}
+				}
+
+			}
+			break;
+		}
+		case 16:
+		{
+			std::vector<string> arr;
+			arr = databaseAVLTree.getDataManagementNameList();
+			numberOfNodes = arr.size();
+
+			if (numberOfNodes == 0)
+			{
+				std::cout << "\nList is empty" << std::endl;
+			}
+			else
+			{
+				std::cout << "\nStudent list of only Data Management Course" << std::endl;
+				string* namesDataManagement = &arr[0];
+				int nDManagement = arr.size();
+
+				int nDStructure = dataStructuresStack.getNumberOfNode();;
+				string* namesDataStructure = dataStructuresStack.getDataStructureNameList(nDStructure);
+
+				bool isOnlyDataManagement = false;
+				std::vector<string> namesVector;
+
+				if (nDStructure == 0)
+				{
+					for (int i = 0; i < nDManagement; i++)
+					{
+						namesVector.push_back(namesDataManagement[i]);
+					}
+
+				}
+				else
+				{
+					for (int i = 0; i < nDManagement; i++)
+					{
+						isOnlyDataManagement = false;
+						for (int j = 0; j < nDStructure; j++)
+						{
+							if (namesDataManagement[i] == namesDataStructure[j])
+							{
+								isOnlyDataManagement = false;
+								break;
+							}
+							else isOnlyDataManagement = true;
+						}
+						if (isOnlyDataManagement)
+						{
+							namesVector.push_back(namesDataManagement[i]);
+						}
+					}
+				}
+
+				int nNames = namesVector.size();
+
+				if (nNames == 0)
+				{
+					std::cout << "\nThere is no student who takes only Data Management Course" << std::endl;
+
+				}
+				else
+				{
+					string* names = &namesVector[0];
+					if (nNames == 1)
+					{
+						studentList.displaySelectionSortedList(names[0]);
+					}
+					else
+					{
+						for (size_t i = 0; i < nNames; i++)
+						{
+							studentList.displaySelectionSortedList(names[i]);
+						}
+					}
+				}
+
+
+			}
+			break;
+		}
+		case 17:
+		{
+			std::vector<int> arrDM;
+			arrDM = databaseAVLTree.getDataManagementOtherDepartmentNumberList();
+
+			std::vector<int> arrDS;
+			arrDS = dataStructuresStack.getDataStructureOtherDepartmentNumberList();
+
+
+			if (arrDM.size() == 0 || arrDS.size() == 0)
+			{
+				std::cout << "\nThere is no common student" << std::endl;
+			}
+			else
+			{
+				std::cout << "\n Students of both take classes but different department" << std::endl;
+
+				std::vector<int> numbersVector;
+
+				for (int x : arrDM)
+				{
+					for (int y : arrDS)
+					{
+						if (x == y)
+						{
+							numbersVector.push_back(y);
+						}
+					}
+				}
+
+				if (numbersVector.size() == 0)
+				{
+					std::cout << "\nThere is no common student" << std::endl;
+				}
+				else
+				{
+					for (int x : numbersVector)
+					{
+						studentList.displayQuickSortedList(x);
+					}
+				}
+
+			}
+			break;
+		}
+		case 18:
+		{
 			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			std::vector<string> arr;
 			arr = databaseAVLTree.getDataManagementSurnameList(); // Get Data Management Surname List
@@ -314,7 +482,7 @@ int main() {
 			}
 			break;
 		}
-		case 16: 
+		case 19: 
 		{
 			std::vector<string> arr;
 			arr = databaseAVLTree.getDataManagementNameList();
@@ -395,7 +563,7 @@ int main() {
 			}
 			break;
 		}
-		case 17:
+		case 20:
 			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			if (numberOfNodes == 0)
 			{
@@ -439,10 +607,19 @@ void writeOperations() {
 	std::cout << "12. Delete a student from Database Management Systems Course (AVL Tree Deletion)" << std::endl;
 	std::cout << "13. Find a student from Database Management Systems Course (AVL Tree Search)" << std::endl;
 	std::cout << "14. Display Database Management Systems Course Students (AVL Tree Display)" << std::endl;
+<<<<<<< HEAD
 	std::cout << "16. Sort the student list of onyl Database Management Course with selection sort in order to names" << std::endl;
 	std::cout << "17. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl;
 	std::cout << "16. Sort the student list of Database Management Course with selection sort in order to names" << std::endl; // It will be edit when the database avl tree is added.
 	std::cout << "17. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl; // It will be edit when the database avl tree is added.
+=======
+	std::cout << "15. Display students who take both classes more than one" << std::endl;
+	std::cout << "16. Display students who only take Database Management Systems Course" << std::endl;
+	std::cout << "17. Display students who take both classes but different department" << std::endl;
+	std::cout << "18. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
+	std::cout << "19. Sort the student list of onyl Database Management Course with selection sort in order to names" << std::endl;
+	std::cout << "20. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl;
+>>>>>>> master
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
@@ -459,6 +636,7 @@ void addExampleStudentList()
 	addStudentWith(3, 13, "celil", "arici", "ee");
 	addStudentWith(4, 11, "alperen", "bayraktar", "bm");
 	addStudentWith(5, 10, "kazim", "vali", "bm");
+	addStudentWith(6, 16, "john", "grosicki", "mm");
 }
 
 
