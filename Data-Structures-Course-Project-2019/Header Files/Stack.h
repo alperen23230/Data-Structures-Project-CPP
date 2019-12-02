@@ -33,6 +33,19 @@ public:
 			return deletedStudentNo;
 		}
 	}
+
+	Student popStudent() {
+
+		if (head == NULL) {
+			
+		}
+		else {
+			Student student = head->student;
+			DeleteNode(student.studentNo);
+			return student;
+		}
+	}
+
 	void DisplayStack() { 
 		int num = 0;
 		Node* currNode = head;
@@ -44,6 +57,19 @@ public:
 			num++;
 		}
 		std::cout << "Number of Nodes: " << num << std::endl;
+	}
+
+	Stack cloneStack() {
+		Stack cloneStack;
+		Node* currNode = head;
+
+		while (currNode != NULL)
+		{
+			cloneStack.push(currNode->student);
+			currNode = currNode->next;
+		}
+
+		return cloneStack;
 	}
 
 	int getNumberOfNode() {
@@ -135,4 +161,47 @@ public:
 		}
 		return otherDepartmentNumberList;
 	}
+
+	void swap(int i, int j)
+	{
+		Stack stack1;
+		Stack stack2;
+
+		//Student d1;// = FindNodewithIndex(i);
+		//Student d2;// = FindNodewithIndex(j);
+
+		int x = 1;
+		while (x < i)
+		{
+			stack1.push(popStudent());
+			x++;
+		}
+		Student d1 = popStudent();
+
+		int y = i+1;
+		while (y < j)
+		{
+			stack2.push(popStudent());
+			y++;
+		}
+		Student d2 = popStudent();
+
+		push(d1);
+
+		while (!stack2.isEmpty())
+		{
+			push(stack2.popStudent());
+		}
+
+		push(d2);
+
+		while (!stack1.isEmpty())
+		{
+			push(stack1.popStudent());
+		}
+
+
+
+	}
+
 };

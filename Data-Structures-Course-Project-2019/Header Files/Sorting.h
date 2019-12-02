@@ -1,13 +1,14 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include <string>
 #include "LinkedList.h"
 #include "Student.h"
-
+#include "Stack.h"
 
 using std::string;
 
 LinkedList list;
+Stack stack;
 
 
 
@@ -15,6 +16,7 @@ LinkedList list;
 struct Radix {
 	int lenght;
 	string* surnames;
+
 
 	Radix(string list[], int listLenght) {
 		surnames = list;
@@ -130,12 +132,17 @@ struct Quick
 {
 	int lenght;
 	int* numbers;
+	Stack stack1;
 
 	Quick(int list[], int listLenght)
 	{
 		lenght = listLenght;
 		numbers = list;
 	}
+	Quick(Stack stack,int stackLenght){
+		stack1 = stack;
+		lenght = stackLenght;
+}
 
 
 	void swap(int* x, int* y)
@@ -162,6 +169,26 @@ struct Quick
 		return i + 1;
 	}
 
+	int partitionStack(Stack* stack, int low, int high)
+	{
+
+		Student pivot = stack->FindNodewithIndex(high);
+		int i = low - 1;
+
+		for (int j = low; j < high; j++)
+		{
+				if (stack->FindNodewithIndex(j).studentNo < pivot.studentNo)
+				{
+					i++;
+					if (i != j)stack->swap(i, j);
+				}
+		}
+		if(i+1 != high)stack->swap(i + 1, high);
+		return i + 1;
+
+	}
+
+
 	void quickSort(int list[], int low, int high)
 	{
 		if (low < high)
@@ -173,10 +200,34 @@ struct Quick
 		}
 	}
 
+	void quickSortStack(Stack* stack, int low, int high)
+	{
+
+		if (low < high)
+		{
+			int pivot = partitionStack(stack, low, high);
+
+			quickSortStack(stack, low, pivot - 1); // Sorting left pivot numbers
+			quickSortStack(stack, pivot + 1, high); // Sorting right pivot numbers
+
+		}
+
+	}
+	
+
 	void sortWithQuickSort()
 	{
+
 		quickSort(numbers, 0, lenght - 1);
 		
+	}
+
+	Stack sortWithQuickSortStack()
+	{
+		quickSortStack(&stack1, 1, lenght);
+
+		return stack1;
+		//stack1.DisplayStack();
 	}
 
 };

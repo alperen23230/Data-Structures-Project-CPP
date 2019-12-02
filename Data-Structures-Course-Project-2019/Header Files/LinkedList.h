@@ -69,6 +69,24 @@ public:
 		return 0;
 	}
 
+	Student FindNodewithIndex(int index)
+	{
+		Node* currNode = head;
+		int currentIndex = 1;
+
+		while (currNode && currentIndex != index)
+		{
+				currNode = currNode->next;
+				currentIndex++;
+		}
+
+		if (currNode)
+		{
+			return currNode->student;
+		}
+		//return 0;
+	}
+
 	Student FindStudent(int studentNo) {
 		Node* currNode = head;
 		int currentIndex = 1;
