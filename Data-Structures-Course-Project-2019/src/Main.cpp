@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <algorithm>
 #include <climits>
@@ -15,6 +15,9 @@ LinkedList willAddstudent;
 LinkedList studentList;
 //This is for Data Structures and Algorithms Course list (Stack).
 Stack dataStructuresStack;
+//TEST
+Stack sortedStack;
+
 //This is for Database Management Systems Course list (AVL Tree).
 AVL databaseAVLTree;
 
@@ -559,11 +562,32 @@ int main() {
 					}
 				}
 
-				
 			}
+
 			break;
 		}
 		case 20:
+		{
+			int sizeStack = dataStructuresStack.getNumberOfNode();
+
+			if (sizeStack == 0)
+			{
+				std::cout << "\nList is empty" << std::endl;
+			}
+			else
+			{
+				// Cloning stack for not changing original stack.
+				sortedStack = dataStructuresStack.cloneStack();
+				Quick sort(sortedStack, sizeStack);
+
+				sortedStack = sort.sortWithQuickSortStack();
+
+				sortedStack.DisplayStack();
+			}
+
+			break;
+		}
+		case 21:
 			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			if (numberOfNodes == 0)
 			{
@@ -581,6 +605,8 @@ int main() {
 				}
 			}
 			break;
+
+		
 		default:
 			break;
 		}
@@ -611,8 +637,9 @@ void writeOperations() {
 	std::cout << "16. Display students who only take Database Management Systems Course" << std::endl;
 	std::cout << "17. Display students who take both classes but different department" << std::endl;
 	std::cout << "18. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
-	std::cout << "19. Sort the student list of onyl Database Management Course with selection sort in order to names" << std::endl;
-	std::cout << "20. Sort the student list of Data Structures Course with quick sort in order to numbers" << std::endl;
+	std::cout << "19. Sort the student list of only Database Management Course with selection sort in order to names" << std::endl;
+	std::cout << "20. Sort the student list of Data Structures Course with quick sort in order to numbers (with Stack)" << std::endl;
+	std::cout << "21. Sort the student list of Data Structures Course with quick sort in order to numbers (with Array)" << std::endl;
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
@@ -623,13 +650,14 @@ void addStudentWith(int nodeCount, int studentNo, std::string studentName, std::
 
 void addExampleStudentList()
 {
-	addStudentWith(0, 15, "ahmet", "akaslan", "bm");
-	addStudentWith(1, 12, "mehmet", "akasya", "bm");
-	addStudentWith(2, 14, "veli", "unal", "bm");
-	addStudentWith(3, 13, "celil", "arici", "ee");
-	addStudentWith(4, 11, "alperen", "bayraktar", "bm");
-	addStudentWith(5, 10, "kazim", "vali", "bm");
-	addStudentWith(6, 16, "john", "grosicki", "mm");
+	addStudentWith(0, 6495, "Abdulhamit", "Akaslan", "bm");
+	addStudentWith(1, 6694, "Alperen", "Unal", "bm");
+	addStudentWith(2, 6737, "Alperen", "Arici", "ym");
+	addStudentWith(3, 6677, "Enes", "Van", "mm");
+	addStudentWith(4, 6477, "Kadir", "Ek", "bm");
+	addStudentWith(5, 6590, "Emrah", "Batigun", "bm");
+	addStudentWith(6, 6457, "Muhammed", "Aytemiz", "ee");
+	addStudentWith(7, 6539, "Teyyihan", "Aksu", "bm");
+
+
 }
-
-
