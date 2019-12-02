@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 #include <algorithm>
 #include <climits>
@@ -63,13 +63,13 @@ int main() {
 		switch (selection)
 		{
 		case 1:
-			std::cout << "\nEnter a student no: " ;
-			std::cin >> studentNo; 
-			std::cout << "\nEnter a student name: " ;
+			std::cout << "\nEnter a student no: ";
+			std::cin >> studentNo;
+			std::cout << "\nEnter a student name: ";
 			std::cin >> studentName; if (std::any_of(studentName.begin(), studentName.end(), ::isdigit)) { std::cout << "Student name cannot contain digit!"; break; }
-			std::cout << "\nEnter a student surname: " ;
+			std::cout << "\nEnter a student surname: ";
 			std::cin >> studentSurname; if (std::any_of(studentSurname.begin(), studentSurname.end(), ::isdigit)) { std::cout << "Student surname cannot contain digit!"; break; }
-			std::cout << "\nEnter a student department: " ; 
+			std::cout << "\nEnter a student department: ";
 			std::cin >> studentDepartment; if (std::any_of(studentDepartment.begin(), studentDepartment.end(), ::isdigit)) { std::cout << "Student department cannot contain digit!"; break; }
 
 			if (std::cin.fail()) {
@@ -83,7 +83,7 @@ int main() {
 
 				studentListNodes++;
 			}
-		
+
 			break;
 		case 2:
 			std::cout << "\nEnter the number of the student you wish to delete from the student list: ";
@@ -101,7 +101,7 @@ int main() {
 					std::cout << "Such a student is not in the student list." << std::endl;
 				}
 			}
-			
+
 			break;
 		case 3:
 			std::cout << "\nEnter the number of the student you wish to find from the student list: ";
@@ -120,7 +120,7 @@ int main() {
 					std::cout << "Such a student is not in the student list." << std::endl;
 				}
 			}
-		
+
 			break;
 
 		case 4:
@@ -147,7 +147,7 @@ int main() {
 					std::cout << "Such a student is not in the student list." << std::endl;
 				}
 			}
-		
+
 			break;
 		case 6:
 			deletedStudentNo = dataStructuresStack.pop();
@@ -186,7 +186,7 @@ int main() {
 					std::cout << "Such a student is not in the data structures course list." << std::endl;
 				}
 			}
-		
+
 			break;
 		case 8:
 			if (dataStructuresStack.isEmpty()) {
@@ -217,7 +217,7 @@ int main() {
 					Student willAddstudent = studentList.FindStudent(studentNo);
 					willAddstudent.studentdatabaseManagementSystemCount = courseTakeCount;
 					databaseAVLTree.insert(willAddstudent);
-					std::cout << "Student added to Database Management System course successfully!" <<std::endl;
+					std::cout << "Student added to Database Management System course successfully!" << std::endl;
 				}
 				else {
 					std::cout << "Such a student is not in the student list." << std::endl;
@@ -232,14 +232,14 @@ int main() {
 				break;
 			}
 			else {
-				 
-					if (databaseAVLTree.search(studentSurname) == NULL) {
-						std::cout << "Such a student is not in the database management system course list." << std::endl;
-					}
-					else {
-						databaseAVLTree.deleteNode(studentSurname);
-						databaseAVLTree.display();
-					}
+
+				if (databaseAVLTree.search(studentSurname) == NULL) {
+					std::cout << "Such a student is not in the database management system course list." << std::endl;
+				}
+				else {
+					databaseAVLTree.deleteNode(studentSurname);
+					databaseAVLTree.display();
+				}
 			}
 			break;
 		case 13:
@@ -463,7 +463,7 @@ int main() {
 				}
 
 				int nSurnames = surnamesVector.size();
-				
+
 				if (nSurnames == 0)
 				{
 
@@ -485,7 +485,7 @@ int main() {
 			}
 			break;
 		}
-		case 19: 
+		case 19:
 		{
 			std::vector<string> arr;
 			arr = databaseAVLTree.getDataManagementNameList();
@@ -553,12 +553,12 @@ int main() {
 					else
 					{
 
-					Selection sort(names, nNames);
-					sort.sortWithSelection();
-					for (size_t i = 0; i < nNames; i++)
-					{
-						studentList.displaySelectionSortedList(names[i]);
-					}
+						Selection sort(names, nNames);
+						sort.sortWithSelection();
+						for (size_t i = 0; i < nNames; i++)
+						{
+							studentList.displaySelectionSortedList(names[i]);
+						}
 					}
 				}
 
@@ -597,7 +597,7 @@ int main() {
 			{
 				std::cout << "\nStudent list of Data Structures Course is sorted with quick sort in order to numbers" << std::endl;
 				int* numbers = dataStructuresStack.getDataStructureNumberList(numberOfNodes);
-				Quick sort(numbers,numberOfNodes);
+				Quick sort(numbers, numberOfNodes);
 				sort.sortWithQuickSort();
 				for (size_t i = 0; i < numberOfNodes; i++)
 				{
@@ -606,7 +606,7 @@ int main() {
 			}
 			break;
 
-		
+
 		default:
 			break;
 		}

@@ -37,7 +37,7 @@ public:
 	Student popStudent() {
 
 		if (head == NULL) {
-			
+
 		}
 		else {
 			Student student = head->student;
@@ -46,7 +46,7 @@ public:
 		}
 	}
 
-	void DisplayStack() { 
+	void DisplayStack() {
 		int num = 0;
 		Node* currNode = head;
 
@@ -178,7 +178,7 @@ public:
 		}
 		Student d1 = popStudent();
 
-		int y = i+1;
+		int y = i + 1;
 		while (y < j)
 		{
 			stack2.push(popStudent());

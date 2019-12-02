@@ -9,7 +9,7 @@ using std::string;
 struct Node {
 	Student student;
 	Node* next;
-	Node(int no, std::string name, std::string surname, std::string department): student(no, name, surname, department) {}
+	Node(int no, std::string name, std::string surname, std::string department) : student(no, name, surname, department) {}
 };
 
 class LinkedList {
@@ -76,8 +76,8 @@ public:
 
 		while (currNode && currentIndex != index)
 		{
-				currNode = currNode->next;
-				currentIndex++;
+			currNode = currNode->next;
+			currentIndex++;
 		}
 
 		if (currNode)
@@ -98,7 +98,7 @@ public:
 		}
 
 		if (currNode) { return currNode->student; }
-		
+
 	}
 
 	int DeleteNode(int studentNo) {

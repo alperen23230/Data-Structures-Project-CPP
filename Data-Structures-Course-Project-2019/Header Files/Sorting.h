@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <iostream>
 #include <string>
 #include "LinkedList.h"
@@ -139,10 +139,10 @@ struct Quick
 		lenght = listLenght;
 		numbers = list;
 	}
-	Quick(Stack stack,int stackLenght){
+	Quick(Stack stack, int stackLenght) {
 		stack1 = stack;
 		lenght = stackLenght;
-}
+	}
 
 
 	void swap(int* x, int* y)
@@ -177,13 +177,13 @@ struct Quick
 
 		for (int j = low; j < high; j++)
 		{
-				if (stack->FindNodewithIndex(j).studentNo < pivot.studentNo)
-				{
-					i++;
-					if (i != j)stack->swap(i, j);
-				}
+			if (stack->FindNodewithIndex(j).studentNo < pivot.studentNo)
+			{
+				i++;
+				if (i != j)stack->swap(i, j);
+			}
 		}
-		if(i+1 != high)stack->swap(i + 1, high);
+		if (i + 1 != high)stack->swap(i + 1, high);
 		return i + 1;
 
 	}
@@ -213,13 +213,13 @@ struct Quick
 		}
 
 	}
-	
+
 
 	void sortWithQuickSort()
 	{
 
 		quickSort(numbers, 0, lenght - 1);
-		
+
 	}
 
 	Stack sortWithQuickSortStack()
