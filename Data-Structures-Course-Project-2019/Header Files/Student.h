@@ -11,7 +11,7 @@ struct Student {
 	int studentdatabaseManagementSystemCount;
 	std::string groupByNo;
 	std::string groupBySurname;
-	
+
 	//Constructor of struct
 	Student(int no, std::string name, std::string surname, std::string department) {
 		dataStructuresCount = 0;
@@ -24,7 +24,7 @@ struct Student {
 		groupBySurname = FindSurnameGroup(surname);
 	}
 	// Constructor with count
-	Student(int no, std::string name, std::string surname, std::string department,int databaseManagementSystemCount) {
+	Student(int no, std::string name, std::string surname, std::string department, int databaseManagementSystemCount) {
 		dataStructuresCount = 0;
 		studentdatabaseManagementSystemCount = databaseManagementSystemCount;
 		studentNo = no;
@@ -64,14 +64,14 @@ struct Student {
 			std::cout << "Student Department:" << studentDepartment << std::endl;
 			std::cout << "-----------------------------------------------------" << std::endl;
 		}
-	
+
 	}
 
 private:
 	//This char arrays for find student surname group
-	char AGroup[22] = {'A','a','b','B','c','C','d','D','e','E','f','F','g','G','h','H','i','I','j','J','k','K' };
+	char AGroup[22] = { 'A','a','b','B','c','C','d','D','e','E','f','F','g','G','h','H','i','I','j','J','k','K' };
 	char BGroup[30] = { 'l','L','m','M','n','N','o','O','p','P','q','Q','r','R','s','S','t','T','u','U','v','V','w','W','y','Y','x','X','z','Z' };
-	
+
 	//This function for find no group of student. It takes student no as a parameter and return group
 	std::string FindNoGroup(int studentNo) {
 		if (studentNo % 2 == 0)
@@ -82,7 +82,7 @@ private:
 	//This function for find surname group of student. It takes student surname as a parameter and return group 
 	std::string FindSurnameGroup(std::string studentSurname) {
 
-		for (int i = 0;i < 22;i++) {
+		for (int i = 0; i < 22; i++) {
 			char wantedChar = AGroup[i];
 
 			if (studentSurname.at(0) == wantedChar) {
@@ -90,7 +90,7 @@ private:
 			}
 		}
 
-		for (int i = 0;i < 30;i++) {
+		for (int i = 0; i < 30; i++) {
 			char wantedChar = BGroup[i];
 
 			if (studentSurname.at(0) == wantedChar) {
