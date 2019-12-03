@@ -58,6 +58,18 @@ public:
 		}
 		std::cout << "Number of Nodes: " << num << std::endl;
 	}
+	void DisplayMergedStack() {
+		int num = 0;
+		Node* currNode = head;
+
+		while (currNode != NULL)
+		{
+			currNode->student.displayStudent("");
+			currNode = currNode->next;
+			num++;
+		}
+		std::cout << "Number of Nodes: " << num << std::endl;
+	}
 
 	Stack cloneStack() {
 		Stack cloneStack;
@@ -71,6 +83,52 @@ public:
 
 		return cloneStack;
 	}
+
+	Stack reverseStack() {
+		Stack cloneStack;
+		Node* currNode = head;
+
+		while (currNode != NULL)
+		{
+			cloneStack.push(currNode->student);
+			currNode = currNode->next;
+		}
+
+		return cloneStack;
+	}
+
+	Stack moreThanOneStack() {
+		Stack moreThanOneStack;
+		Node* currNode = head;
+
+		while (currNode != NULL)
+		{
+			if (currNode->student.dataStructuresCount > 1)
+			{
+				moreThanOneStack.push(currNode->student);
+			}
+			currNode = currNode->next;
+		}
+
+		return moreThanOneStack;
+	}
+
+	Stack otherDepartmentStack() {
+		Stack otherDepartmentStack;
+		Node* currNode = head;
+
+		while (currNode != NULL)
+		{
+			if (currNode->student.studentDepartment != "bm" && currNode->student.dataStructuresCount > 0)
+			{
+				otherDepartmentStack.push(currNode->student);
+			}
+			currNode = currNode->next;
+		}
+
+		return otherDepartmentStack;
+	}
+
 
 	int getNumberOfNode() {
 		int num = 0;
@@ -167,8 +225,6 @@ public:
 		Stack stack1;
 		Stack stack2;
 
-		//Student d1;// = FindNodewithIndex(i);
-		//Student d2;// = FindNodewithIndex(j);
 
 		int x = 1;
 		while (x < i)
