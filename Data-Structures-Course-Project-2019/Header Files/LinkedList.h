@@ -196,6 +196,20 @@ public:
 		}
 	}
 
+	void displayListwithNumber(int number) {
+		Node* currNode = head;
+		int currentIndex = 1;
+
+		while (currNode != NULL)
+		{
+			if (currNode->student.studentNo == number)
+			{
+				currNode->student.displayStudent("");
+			}
+			currNode = currNode->next;
+		}
+	}
+
 
 };
 

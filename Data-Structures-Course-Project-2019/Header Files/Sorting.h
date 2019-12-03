@@ -97,10 +97,16 @@ struct Selection
 {
 	int lenght, minIndex;
 	string* names;
+	Stack stack1;
 
 	Selection(string list[], int listLenght) {
 		names = list;
 		lenght = listLenght;
+	}
+	Selection(Stack stack, int stackLenght)
+	{
+		stack1 = stack;
+		lenght = stackLenght;
 	}
 
 	void swap(string *xPointer, string *yPointer)
@@ -125,6 +131,36 @@ struct Selection
 			swap(&names[minIndex], &names[i]);
 		}
 	}
+
+	Stack selectionSortStack()
+	{
+		sortWithSelectionStack(&stack1);
+
+		return stack1;
+	}
+
+	void sortWithSelectionStack(Stack* stack)
+	{
+		
+		for (int i = 1; i < lenght; i++)
+		{
+			minIndex = i;
+
+			for (int j = i + 1; j < lenght + 1; j++)
+			{
+				if (stack->FindNodewithIndex(j).studentName > stack->FindNodewithIndex(minIndex).studentName)
+				{
+					minIndex = j;
+				}
+			}
+			if(minIndex < i) stack->swap(minIndex, i);
+			else if (i < minIndex) stack->swap(i, minIndex);
+			
+		}
+
+
+	}
+
 
 };
 
@@ -227,7 +263,6 @@ struct Quick
 		quickSortStack(&stack1, 1, lenght);
 
 		return stack1;
-		//stack1.DisplayStack();
 	}
 
 };

@@ -22,6 +22,8 @@ class AVL
 	std::vector<string> surnameList;
 	std::vector<int> numberList;
 
+	
+
 	void makeEmpty(node* t)
 	{
 		if (t == NULL)
@@ -263,6 +265,8 @@ public:
 	{
 		root = NULL;
 	}
+	
+
 
 	void insert(Student x)
 	{
@@ -290,6 +294,27 @@ public:
 		getNames(root);
 		return nameList;
 	}
+
+	AVL* cloneAVL()
+	{
+		AVL* cloneAVL = new AVL();
+		getNodes(root,cloneAVL);
+
+		return cloneAVL;
+
+	}
+
+	void getNodes(node* t,AVL* cloneAVL)
+	{
+		if (t == NULL)
+		{
+			return;
+		}
+		getNodes(t->left,cloneAVL);
+		cloneAVL->insert(t->student);
+		getNodes(t->right,cloneAVL);
+	}
+
 
 	void getNames(node* t)
 	{
@@ -361,4 +386,75 @@ public:
 		}
 		getMorethanOneNumbers(t->right);
 	}
+
+	AVL* moreThanOneAVL()
+	{
+		AVL* moreThanOneAVL = new AVL();
+		getMoreThanOneAVL(root, moreThanOneAVL);
+
+		return moreThanOneAVL;
+
+	}
+
+	void getMoreThanOneAVL(node* t, AVL* moreThanOneAVL)
+	{
+		if (t == NULL)
+		{
+			return;
+		}
+		getMoreThanOneAVL(t->left, moreThanOneAVL);
+		if (t->student.studentdatabaseManagementSystemCount > 1)
+		{
+			moreThanOneAVL->insert(t->student);
+		}
+		getMoreThanOneAVL(t->right, moreThanOneAVL);
+	}
+
+	AVL* otherDepartmentAVL()
+	{
+		AVL* otherDepartmentAVL = new AVL();
+		getOtherDepartmentAVL(root, otherDepartmentAVL);
+
+		return otherDepartmentAVL;
+
+	}
+
+	void getOtherDepartmentAVL(node* t, AVL* otherDepartmentAVL)
+	{
+		if (t == NULL)
+		{
+			return;
+		}
+		getOtherDepartmentAVL(t->left, otherDepartmentAVL);
+		if (t->student.studentDepartment != "bm")
+		{
+			otherDepartmentAVL->insert(t->student);
+		}
+		getOtherDepartmentAVL(t->right, otherDepartmentAVL);
+	}
+
+
+
+	Stack* AVLToStack()
+	{
+		Stack* stack = new Stack();
+		getAVLToStack(root, stack);
+
+		return stack;
+
+	}
+
+	void getAVLToStack(node* t, Stack* stack)
+	{
+		if (t == NULL)
+		{
+			return;
+		}
+		getAVLToStack(t->left, stack);
+		stack->push(t->student);
+		getAVLToStack(t->right, stack);
+	}
+
+
+
 };

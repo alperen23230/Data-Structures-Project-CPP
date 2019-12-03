@@ -15,11 +15,15 @@ LinkedList willAddstudent;
 LinkedList studentList;
 //This is for Data Structures and Algorithms Course list (Stack).
 Stack dataStructuresStack;
-//TEST
+//Clone stack and sort
 Stack sortedStack;
 
 //This is for Database Management Systems Course list (AVL Tree).
 AVL databaseAVLTree;
+
+
+//Clone AVL and sort
+AVL sortedAVL;
 
 void writeOperations();
 void addStudentWith(int nodeCount, int studentNo, std::string studentName, std::string studentSurname, std::string studentDepartment);
@@ -43,6 +47,22 @@ int main() {
 	Stack auxStack;
 	//This variable uses in a deletion of spesific student in stack
 	int auxStudentNo;
+
+	AVL moreThanOneAVL;
+
+	Stack moreThanOneStack;
+
+	Stack AVLtoStack;
+
+	Stack mergedStack;
+
+	Stack dataSStack;
+
+	Stack dataMStack;
+
+	AVL otherDepartmentAVL;
+
+	Stack otherDepartmentStack;
 
 	//While for application menu
 	while (true) {
@@ -168,15 +188,15 @@ int main() {
 				if (dataStructuresStack.FindNode(studentNo) != 0) {
 					while (!dataStructuresStack.isEmpty())
 					{
-						deletedStudentNo = dataStructuresStack.pop();
-						if (studentNo != deletedStudentNo)
-							auxStack.push(studentList.FindStudent(deletedStudentNo));
+						Student deletedStudent = dataStructuresStack.popStudent();
+						if (studentNo != deletedStudent.studentNo)
+							auxStack.push(deletedStudent);
 					}
 
 					while (!auxStack.isEmpty())
 					{
-						auxStudentNo = auxStack.pop();
-						dataStructuresStack.push(studentList.FindStudent(auxStudentNo));
+						Student auxStudent = auxStack.popStudent();
+						dataStructuresStack.push(auxStudent);
 					}
 				}
 				else if (studentList.FindNode(studentNo) == 0) {
@@ -263,6 +283,63 @@ int main() {
 			break;
 		case 15:
 		{
+			moreThanOneAVL = *(databaseAVLTree.moreThanOneAVL());
+
+			moreThanOneStack = dataStructuresStack.moreThanOneStack();
+
+			AVLtoStack = *(moreThanOneAVL.AVLToStack());
+
+
+			if (moreThanOneStack.getNumberOfNode() == 0 || AVLtoStack.getNumberOfNode() == 0)
+			{
+				std::cout << "\nThere is no common student" << std::endl;
+			}
+			else
+			{
+				std::cout << "\n Students of both take classes more than one (with Stack)" << std::endl;
+
+
+				while (!mergedStack.isEmpty())
+				{
+					mergedStack.pop();
+				}
+
+				while (!moreThanOneStack.isEmpty())
+				{
+					Student dSNo = moreThanOneStack.popStudent();
+
+					AVLtoStack = *(moreThanOneAVL.AVLToStack());
+					while (!AVLtoStack.isEmpty())
+					{
+						Student dMNo = AVLtoStack.popStudent();
+
+						if (dSNo.studentNo == dMNo.studentNo)
+						{
+							mergedStack.push(dMNo);
+						}
+
+					}
+				}
+
+				if (mergedStack.getNumberOfNode() == 0)
+				{
+					std::cout << "\nThere is no common student" << std::endl;
+				}
+				else
+				{
+					mergedStack.DisplayMergedStack();
+
+				}
+
+			}
+
+			
+
+
+			break;
+		}
+		case 16:
+		{
 			std::vector<int> arrDM;
 			arrDM = databaseAVLTree.getDataManagementMorethanOneNumberList();
 
@@ -276,7 +353,7 @@ int main() {
 			}
 			else
 			{
-				std::cout << "\n Students of both take classes more than one" << std::endl;
+				std::cout << "\n Students of both take classes more than one (with Array)" << std::endl;
 
 				std::vector<int> numbersVector;
 
@@ -299,14 +376,89 @@ int main() {
 				{
 					for (int x : numbersVector)
 					{
-						studentList.displayQuickSortedList(x);
+						studentList.displayListwithNumber(x);
 					}
 				}
 
 			}
 			break;
 		}
-		case 16:
+
+		case 17:
+		{
+			dataSStack = dataStructuresStack.cloneStack();
+
+			dataMStack = *(databaseAVLTree.AVLToStack());
+
+			if (dataMStack.getNumberOfNode() == 0)
+			{
+				std::cout << "\nList is empty" << std::endl;
+			}
+
+			else
+			{
+				std::cout << "\nStudent list of only Data Management Course (with Stack)" << std::endl;
+
+				bool isOnlyDataManagement = false;
+
+				while (!mergedStack.isEmpty())
+				{
+					mergedStack.pop();
+				}
+
+				if (dataSStack.getNumberOfNode() == 0)
+				{
+					while (!dataMStack.isEmpty())
+					{
+						Student dMNo = dataMStack.popStudent();
+						mergedStack.push(dMNo);
+					}
+				}
+				else
+				{
+					while (!dataMStack.isEmpty())
+					{
+						isOnlyDataManagement = false;
+						Student dMNo = dataMStack.popStudent();
+
+						dataSStack = dataStructuresStack.cloneStack();
+
+						while (!dataSStack.isEmpty())
+						{
+							Student dSNo = dataSStack.popStudent();
+
+							if (dMNo.studentNo == dSNo.studentNo)
+							{
+								isOnlyDataManagement = false;
+								break;
+							}
+							else isOnlyDataManagement = true;
+						}
+						if (isOnlyDataManagement)
+						{
+							mergedStack.push(dMNo);
+						}
+					}
+				}
+
+				if (mergedStack.getNumberOfNode() == 0)
+				{
+					std::cout << "\nThere is no student who takes only Data Management Course" << std::endl;
+
+				}
+				else
+				{
+					mergedStack.DisplayMergedStack();
+
+				}
+
+
+			}
+
+			break;
+		}
+
+		case 18:
 		{
 			std::vector<string> arr;
 			arr = databaseAVLTree.getDataManagementNameList();
@@ -318,7 +470,7 @@ int main() {
 			}
 			else
 			{
-				std::cout << "\nStudent list of only Data Management Course" << std::endl;
+				std::cout << "\nStudent list of only Data Management Course (with Array)" << std::endl;
 				string* namesDataManagement = &arr[0];
 				int nDManagement = arr.size();
 
@@ -384,7 +536,66 @@ int main() {
 			}
 			break;
 		}
-		case 17:
+
+		case 19:
+		{
+
+			otherDepartmentAVL = *(databaseAVLTree.otherDepartmentAVL());
+
+			otherDepartmentStack = dataStructuresStack.otherDepartmentStack();
+
+			AVLtoStack = *(otherDepartmentAVL.AVLToStack());
+
+			if (otherDepartmentStack.getNumberOfNode() == 0 || AVLtoStack.getNumberOfNode() == 0)
+			{
+				std::cout << "\nThere is no common student" << std::endl;
+			}
+			else
+			{
+				std::cout << "\n Students of both take classes but different department (with Stack)" << std::endl;
+
+
+				while (!mergedStack.isEmpty()) // to clear merged stack if it is not empty
+				{
+					mergedStack.pop();
+				}
+
+				while (!otherDepartmentStack.isEmpty())
+				{
+					Student dSNo = otherDepartmentStack.popStudent();
+
+					AVLtoStack = *(otherDepartmentAVL.AVLToStack());
+					while (!AVLtoStack.isEmpty())
+					{
+						Student dMNo = AVLtoStack.popStudent();
+
+						if (dSNo.studentNo == dMNo.studentNo)
+						{
+							mergedStack.push(dMNo);
+						}
+
+					}
+				}
+
+				if (mergedStack.getNumberOfNode() == 0)
+				{
+					std::cout << "\nThere is no common student" << std::endl;
+				}
+				else
+				{
+					mergedStack.DisplayMergedStack();
+
+				}
+
+			}
+
+			
+
+			break;
+		}
+
+
+		case 20:
 		{
 			std::vector<int> arrDM;
 			arrDM = databaseAVLTree.getDataManagementOtherDepartmentNumberList();
@@ -399,7 +610,7 @@ int main() {
 			}
 			else
 			{
-				std::cout << "\n Students of both take classes but different department" << std::endl;
+				std::cout << "\n Students of both take classes but different department (with Array)" << std::endl;
 
 				std::vector<int> numbersVector;
 
@@ -429,7 +640,9 @@ int main() {
 			}
 			break;
 		}
-		case 18:
+
+
+		case 21:
 		{
 			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			std::vector<string> arr;
@@ -441,7 +654,7 @@ int main() {
 			}
 			else
 			{
-				std::cout << "\n Students of both take classes are sorted in order to surnames" << std::endl;
+				std::cout << "\n Students of both take classes are sorted in order to surnames with Radix Sort" << std::endl;
 
 				string* surnamesDataManagement = &arr[0];
 				int nDManagement = arr.size();
@@ -485,7 +698,78 @@ int main() {
 			}
 			break;
 		}
-		case 19:
+
+		case 22:
+		{
+			dataSStack = dataStructuresStack.cloneStack();
+
+			dataMStack = *(databaseAVLTree.AVLToStack());
+
+			if (dataMStack.getNumberOfNode() == 0)
+			{
+				std::cout << "\nList is empty" << std::endl;
+			}
+
+			else
+			{
+				std::cout << "\nStudent list of only Data Management Course is sorted with selection sort in order to names (with Stack)" << std::endl;
+
+				bool isOnlyDataManagement = false;
+
+				while (!mergedStack.isEmpty())
+				{
+					mergedStack.pop();
+				}
+
+				if (dataSStack.getNumberOfNode() == 0)
+				{
+					while (!dataMStack.isEmpty())
+					{
+						Student dMNo = dataMStack.popStudent();
+						mergedStack.push(dMNo);
+					}
+				}
+				else
+				{
+					while (!dataMStack.isEmpty())
+					{
+						isOnlyDataManagement = false;
+						Student dMNo = dataMStack.popStudent();
+
+						dataSStack = dataStructuresStack.cloneStack();
+
+						while (!dataSStack.isEmpty())
+						{
+							Student dSNo = dataSStack.popStudent();
+
+							if (dMNo.studentNo == dSNo.studentNo)
+							{
+								isOnlyDataManagement = false;
+								break;
+							}
+							else isOnlyDataManagement = true;
+						}
+						if (isOnlyDataManagement)
+						{
+							mergedStack.push(dMNo);
+						}
+					}
+				}
+
+				numberOfNodes = mergedStack.getNumberOfNode();
+				Selection sort(mergedStack, numberOfNodes);
+
+				mergedStack = sort.selectionSortStack();
+
+				mergedStack = mergedStack.reverseStack(); // for reverse stack otherwise they would be sorted bigger to lower
+
+				mergedStack.DisplayMergedStack();
+			}
+
+			break;
+		}
+
+		case 23:
 		{
 			std::vector<string> arr;
 			arr = databaseAVLTree.getDataManagementNameList();
@@ -497,7 +781,7 @@ int main() {
 			}
 			else
 			{
-				std::cout << "\nStudent list of only Data Management Course is sorted with selection sort in order to names" << std::endl;
+				std::cout << "\nStudent list of only Data Management Course is sorted with selection sort in order to names (with Array)" << std::endl;
 				string* namesDataManagement = &arr[0];
 				int nDManagement = arr.size();
 
@@ -566,7 +850,7 @@ int main() {
 
 			break;
 		}
-		case 20:
+		case 24:
 		{
 			int sizeStack = dataStructuresStack.getNumberOfNode();
 
@@ -576,8 +860,9 @@ int main() {
 			}
 			else
 			{
-				// Cloning stack for not changing original stack.
-				sortedStack = dataStructuresStack.cloneStack();
+				std::cout << "\nStudent list of Data Structures Course is sorted with quick sort in order to numbers (with Stack)" << std::endl;
+
+				sortedStack = dataStructuresStack.cloneStack(); // Cloning stack for not changing original stack.
 				Quick sort(sortedStack, sizeStack);
 
 				sortedStack = sort.sortWithQuickSortStack();
@@ -587,7 +872,7 @@ int main() {
 
 			break;
 		}
-		case 21:
+		case 25:
 			numberOfNodes = dataStructuresStack.getNumberOfNode();
 			if (numberOfNodes == 0)
 			{
@@ -595,7 +880,7 @@ int main() {
 			}
 			else
 			{
-				std::cout << "\nStudent list of Data Structures Course is sorted with quick sort in order to numbers" << std::endl;
+				std::cout << "\nStudent list of Data Structures Course is sorted with quick sort in order to numbers (with Array)" << std::endl;
 				int* numbers = dataStructuresStack.getDataStructureNumberList(numberOfNodes);
 				Quick sort(numbers, numberOfNodes);
 				sort.sortWithQuickSort();
@@ -633,13 +918,17 @@ void writeOperations() {
 	std::cout << "12. Delete a student from Database Management Systems Course (AVL Tree Deletion)" << std::endl;
 	std::cout << "13. Find a student from Database Management Systems Course (AVL Tree Search)" << std::endl;
 	std::cout << "14. Display Database Management Systems Course Students (AVL Tree Display)" << std::endl;
-	std::cout << "15. Display students who take both classes more than one" << std::endl;
-	std::cout << "16. Display students who only take Database Management Systems Course" << std::endl;
-	std::cout << "17. Display students who take both classes but different department" << std::endl;
-	std::cout << "18. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
-	std::cout << "19. Sort the student list of only Database Management Course with selection sort in order to names" << std::endl;
-	std::cout << "20. Sort the student list of Data Structures Course with quick sort in order to numbers (with Stack)" << std::endl;
-	std::cout << "21. Sort the student list of Data Structures Course with quick sort in order to numbers (with Array)" << std::endl;
+	std::cout << "15. Display students who take both classes more than one (with Stack)" << std::endl;
+	std::cout << "16. Display students who take both classes more than one (with Array)" << std::endl;
+	std::cout << "17. Display students who only take Database Management Systems Course (with Stack)" << std::endl;
+	std::cout << "18. Display students who only take Database Management Systems Course (with Array)" << std::endl;
+	std::cout << "19. Display students who take both classes but different department (with Stack)" << std::endl;
+	std::cout << "20. Display students who take both classes but different department (with Array)" << std::endl;
+	std::cout << "21. Sort the student list of both courses with radix sort in order to surnames" << std::endl;
+	std::cout << "22. Sort the student list of only Database Management Course with selection sort in order to names (with Stack)" << std::endl;
+	std::cout << "23. Sort the student list of only Database Management Course with selection sort in order to names (with Array)" << std::endl;
+	std::cout << "24. Sort the student list of Data Structures Course with quick sort in order to numbers (with Stack)" << std::endl;
+	std::cout << "25. Sort the student list of Data Structures Course with quick sort in order to numbers (with Array)" << std::endl;
 	std::cout << "Insert your selection: ";
 }
 //This function takes student credentials and insert to the linked list
@@ -650,14 +939,22 @@ void addStudentWith(int nodeCount, int studentNo, std::string studentName, std::
 
 void addExampleStudentList()
 {
-	addStudentWith(0, 6495, "Abdulhamit", "Akaslan", "bm");
+	/*addStudentWith(0, 6495, "Abdulhamit", "Akaslan", "bm");
 	addStudentWith(1, 6694, "Alperen", "Unal", "bm");
 	addStudentWith(2, 6737, "Alperen", "Arici", "ym");
 	addStudentWith(3, 6677, "Enes", "Van", "mm");
 	addStudentWith(4, 6477, "Kadir", "Ek", "bm");
 	addStudentWith(5, 6590, "Emrah", "Batigun", "bm");
 	addStudentWith(6, 6457, "Muhammed", "Aytemiz", "ee");
-	addStudentWith(7, 6539, "Teyyihan", "Aksu", "bm");
+	addStudentWith(7, 6539, "Teyyihan", "Aksu", "bm");*/
+
+	addStudentWith(0, 15, "ahmet", "akaslan", "bm");
+	addStudentWith(1, 12, "mehmet", "akasya", "bm");
+	addStudentWith(2, 14, "veli", "unal", "bm");
+	addStudentWith(3, 13, "celil", "arici", "ee");
+	addStudentWith(4, 11, "alperen", "bayraktar", "bm");
+	addStudentWith(5, 10, "kazim", "vali", "bm");
+	addStudentWith(6, 16, "john", "grosicki", "mm");
 
 
 }
