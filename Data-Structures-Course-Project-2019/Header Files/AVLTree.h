@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Student.h"
 #include <string>
-#include <vector> 
+#include <vector>
 
 using namespace std;
 
@@ -14,7 +14,7 @@ class AVL
 		node* left;
 		node* right;
 		int height;
-		node(int no, string name, string surname, string department, int databaseManagementSystemCount) : student(no, name, surname, department,databaseManagementSystemCount) {}
+		node(int no, string name, string surname, string department, int databaseManagementSystemCount) : student(no, name, surname, department, databaseManagementSystemCount) {}
 	};
 
 	node* root;
@@ -22,7 +22,7 @@ class AVL
 	std::vector<string> surnameList;
 	std::vector<int> numberList;
 
-	
+
 
 	void makeEmpty(node* t)
 	{
@@ -64,7 +64,7 @@ class AVL
 			}
 		}
 
-		t->height = fmax(height(t->left), height(t->right)) + 1;
+		t->height = max(height(t->left), height(t->right)) + 1;
 		return t;
 	}
 
@@ -73,8 +73,8 @@ class AVL
 		node* u = t->left;
 		t->left = u->right;
 		u->right = t;
-		t->height = fmax(height(t->left), height(t->right)) + 1;
-		u->height = fmax(height(u->left), t->height) + 1;
+		t->height = max(height(t->left), height(t->right)) + 1;
+		u->height = max(height(u->left), t->height) + 1;
 		return u;
 	}
 
@@ -83,8 +83,8 @@ class AVL
 		node* u = t->right;
 		t->right = u->left;
 		u->left = t;
-		t->height = fmax(height(t->left), height(t->right)) + 1;
-		u->height = fmax(height(t->right), t->height) + 1;
+		t->height = max(height(t->left), height(t->right)) + 1;
+		u->height = max(height(t->right), t->height) + 1;
 		return u;
 	}
 
@@ -123,99 +123,99 @@ class AVL
 	node* deleteNode(node* root, string studentSurname)
 	{
 
-		// STEP 1: PERFORM STANDARD BST DELETE  
+		// STEP 1: PERFORM STANDARD BST DELETE
 		if (root == NULL)
 			return root;
 
-		// If the key to be deleted is smaller  
-		// than the root's key, then it lies 
-		// in left subtree  
+		// If the key to be deleted is smaller
+		// than the root's key, then it lies
+		// in left subtree
 		if (studentSurname < root->student.studentSurname)
 			root->left = deleteNode(root->left, studentSurname);
 
-		// If the key to be deleted is greater  
-		// than the root's key, then it lies  
-		// in right subtree  
+		// If the key to be deleted is greater
+		// than the root's key, then it lies
+		// in right subtree
 		else if (studentSurname > root->student.studentSurname)
 			root->right = deleteNode(root->right, studentSurname);
 
-		// if key is same as root's key, then  
-		// This is the node to be deleted  
+		// if key is same as root's key, then
+		// This is the node to be deleted
 		else
 		{
-			// node with only one child or no child  
+			// node with only one child or no child
 			if ((root->left == NULL) ||
-				(root->right == NULL))
+			        (root->right == NULL))
 			{
 				node *temp = root->left ?
-					root->left :
-					root->right;
+				             root->left :
+				             root->right;
 
-				// No child case  
+				// No child case
 				if (temp == NULL)
 				{
 					temp = root;
 					root = NULL;
 				}
-				else // One child case  
-					*root = *temp; // Copy the contents of  
-								   // the non-empty child  
+				else // One child case
+					*root = *temp; // Copy the contents of
+				// the non-empty child
 				free(temp);
 			}
 			else
 			{
-				// node with two children: Get the inorder  
-				// successor (smallest in the right subtree)  
+				// node with two children: Get the inorder
+				// successor (smallest in the right subtree)
 				node* temp = findMin(root->right);
 
-				// Copy the inorder successor's  
-				// data to this node  
+				// Copy the inorder successor's
+				// data to this node
 				root->student = temp->student;
 
-				// Delete the inorder successor  
+				// Delete the inorder successor
 				root->right = deleteNode(root->right,
-					temp->student.studentSurname);
+				                         temp->student.studentSurname);
 			}
 		}
 
-		// If the tree had only one node 
-		// then return  
+		// If the tree had only one node
+		// then return
 		if (root == NULL)
 			return root;
 
-		// STEP 2: UPDATE HEIGHT OF THE CURRENT NODE  
+		// STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
 		root->height = 1 + max(height(root->left),
-			height(root->right));
+		                       height(root->right));
 
-		// STEP 3: GET THE BALANCE FACTOR OF  
-		// THIS NODE (to check whether this  
-		// node became unbalanced)  
+		// STEP 3: GET THE BALANCE FACTOR OF
+		// THIS NODE (to check whether this
+		// node became unbalanced)
 		int balance = getBalance(root);
 
-		// If this node becomes unbalanced,  
-		// then there are 4 cases  
+		// If this node becomes unbalanced,
+		// then there are 4 cases
 
-		// Left Left Case  
+		// Left Left Case
 		if (balance > 1 &&
-			getBalance(root->left) >= 0)
+		        getBalance(root->left) >= 0)
 			return singleRightRotate(root);
 
-		// Left Right Case  
+		// Left Right Case
 		if (balance > 1 &&
-			getBalance(root->left) < 0)
+		        getBalance(root->left) < 0)
 		{
 			root->left = singleLeftRotate(root->left);
 			return singleRightRotate(root);
 		}
 
-		// Right Right Case  
+		// Right Right Case
 		if (balance < -1 &&
-			getBalance(root->right) <= 0)
+		        getBalance(root->right) <= 0)
 			return singleLeftRotate(root);
 
-		// Right Left Case  
+		// Right Left Case
 		if (balance < -1 &&
-			getBalance(root->right) > 0)
+		        getBalance(root->right) > 0)
 		{
 			root->right = singleRightRotate(root->right);
 			return singleLeftRotate(root);
@@ -248,15 +248,15 @@ class AVL
 
 	struct node* search(struct node* root, string studentSurname)
 	{
-		// Base Cases: root is null or key is present at root 
+		// Base Cases: root is null or key is present at root
 		if (root == NULL || root->student.studentSurname == studentSurname)
 			return root;
 
-		// Key is greater than root's key 
+		// Key is greater than root's key
 		if (root->student.studentSurname < studentSurname)
 			return search(root->right, studentSurname);
 
-		// Key is smaller than root's key 
+		// Key is smaller than root's key
 		return search(root->left, studentSurname);
 	}
 
@@ -265,7 +265,7 @@ public:
 	{
 		root = NULL;
 	}
-	
+
 
 
 	void insert(Student x)
@@ -298,21 +298,21 @@ public:
 	AVL* cloneAVL()
 	{
 		AVL* cloneAVL = new AVL();
-		getNodes(root,cloneAVL);
+		getNodes(root, cloneAVL);
 
 		return cloneAVL;
 
 	}
 
-	void getNodes(node* t,AVL* cloneAVL)
+	void getNodes(node* t, AVL* cloneAVL)
 	{
 		if (t == NULL)
 		{
 			return;
 		}
-		getNodes(t->left,cloneAVL);
+		getNodes(t->left, cloneAVL);
 		cloneAVL->insert(t->student);
-		getNodes(t->right,cloneAVL);
+		getNodes(t->right, cloneAVL);
 	}
 
 
@@ -320,7 +320,7 @@ public:
 	{
 		if (t == NULL)
 		{
-	    return;
+			return;
 		}
 		getNames(t->left);
 		nameList.push_back(t->student.studentName);
